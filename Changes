@@ -4,7 +4,7 @@ Revision history for Perl extension ExtUtils::ParseXS.
 
  - We now use ExtUtils::CBuilder for testing the compile/build phase
    in the regression tests.  It's not necessary to have it for runtime
-   useage, though.
+   usage, though.
 
  - Fixed a minor documentation error (look in 'Changes' for revision
    history, not 'changes.pod'). [Scott R. Godin]
