@@ -1,2 +1,3 @@
 Makefile
 ExtUtils-ParseXS-*
+.lwpcookies
