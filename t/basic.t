@@ -12,7 +12,7 @@ use strict;
 use Config;
 use File::Spec;
 
-chdir 't';
+chdir 't' or die "Can't chdir to t/, $!";
 
 use Carp; $SIG{__WARN__} = \&Carp::cluck;
 
@@ -83,7 +83,7 @@ sub have_compiler {
 sub do_compile {
   my $module   = shift;
   my $module_o = "$module$Config{obj_ext}";
-  my $corelib  = File::Spec->catdir($Config{archlib}, 'CORE');
+  my $corelib  = File::Spec->catdir($Config{archlibexp}, 'CORE');
   my $cc_out   = $MSVC ? '-Fo' : $BCC ? '-o' : '-o ';
   return !do_system("$Config{cc} -c $Config{ccflags} -I$corelib $cc_out$module_o $module.c");
 }
