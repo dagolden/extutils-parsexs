@@ -1,6 +1,6 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.02
+2.02  Sun Mar 30 18:20:12 CST 2003
 
  - Now that we know this module doesn't work (yet?) with perl 5.005,
    put a couple 'use 5.006' statements in the module & Makefile.PL so
