@@ -21,6 +21,7 @@ GetOptions(\%args, qw(hiertype!
 		      except!
 		      v
 		      typemap=s@
+		      output=s
 		      s=s
 		     ))
   or die $usage;
@@ -45,7 +46,7 @@ xsubpp - compiler to convert Perl XS code into C code
 
 =head1 SYNOPSIS
 
-B<xsubpp> [B<-v>] [B<-except>] [B<-s pattern>] [B<-prototypes>] [B<-noversioncheck>] [B<-nolinenumbers>] [B<-nooptimize>] [B<-typemap typemap>] ... file.xs
+B<xsubpp> [B<-v>] [B<-except>] [B<-s pattern>] [B<-prototypes>] [B<-noversioncheck>] [B<-nolinenumbers>] [B<-nooptimize>] [B<-typemap typemap>] [B<-output filename>]... file.xs
 
 =head1 DESCRIPTION
 
@@ -84,6 +85,11 @@ Adds exception handling stubs to the C code.
 Indicates that a user-supplied typemap should take precedence over the
 default typemaps.  This option may be used multiple times, with the last
 typemap having the highest precedence.
+
+=item B<-output filename>
+
+Specifies the name of the output file to generate.  If no file is
+specified, output will be written to standard output.
 
 =item B<-v>
 
