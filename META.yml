@@ -1,15 +1,21 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         ExtUtils-ParseXS
-version:      2.06
-version_from: lib/ExtUtils/ParseXS.pm
-installdirs:  perl
+--- #YAML:1.0
+name: ExtUtils-ParseXS
+version: 2.06
+author:
+  - Based on xsubpp code, written by Larry Wall.
+  - Maintained by Ken Williams, <ken@mathforum.org>
+abstract: converts Perl XS code into C code
+license: perl
 requires:
-    Config:                        0
-    Cwd:                           0
-    Exporter:                      0
-    File::Basename:                0
-    File::Spec:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.21
+  Config: 0
+  Cwd: 0
+  Exporter: 0
+  File::Basename: 0
+  File::Spec: 0
+build_requires:
+  ExtUtils::CBuilder: 0
+provides:
+  ExtUtils::ParseXS:
+    file: lib/ExtUtils/ParseXS.pm
+    version: 2.07
+generated_by: Module::Build version 0.22
