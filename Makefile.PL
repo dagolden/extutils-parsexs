@@ -13,6 +13,7 @@ WriteMakefile
                            'Exporter' => 0
                          },
           'INSTALLDIRS' => 'perl',
-          'PL_FILES' => {}
+          'PL_FILES' => {},
+          'NO_META' => 1,
         )
 ;
