@@ -16,6 +16,11 @@ chdir 't';
 
 use Carp; $SIG{__WARN__} = \&Carp::cluck;
 
+sub Is_MSVC { return $^O eq 'MSWin32'
+		&& $Config{cc} =~ /cl(\.exe)?$/i
+		&& $Config{ld} =~ /link(\.exe)?$/i
+}
+
 #########################
 
 # Try sending to filehandle
@@ -31,12 +36,24 @@ ok -e 'XSTest.c', 1, "Create an output file";
 if (have_compiler()) {
   my $corelib = File::Spec->catdir($Config{archlib}, 'CORE');
   my $o_file = "XSTest$Config{obj_ext}";
+  my $cc_out = Is_MSVC() ? '-Fo' : '-o ';
 
-  ok !do_system("$Config{cc} -c $Config{ccflags} -I$corelib -o $o_file XSTest.c");
+  ok !do_system("$Config{cc} -c $Config{ccflags} -I$corelib $cc_out$o_file XSTest.c");
   ok -e $o_file, 1, "Make sure $o_file exists";
   
   my $lib_file = "XSTest.$Config{dlext}";
-  ok !do_system("$Config{shrpenv} $Config{ld} $Config{lddlflags} -o $lib_file $o_file");
+  my $ld_out = '-o ';
+  my $libs = '';
+  if ( $^O eq 'MSWin32' ) {
+    require ExtUtils::Mksymlists;
+    Mksymlists( 'NAME' => 'XSTest', 'DLBASE' => 'XSTest', 'IMPORTS' => {} );
+    
+    if ( Is_MSVC() ) {
+      $ld_out = '-OUT:';
+      $libs = "$Config{libperl} -def:XSTest.def";
+    }
+  }
+  ok !do_system("$Config{shrpenv} $Config{ld} $Config{lddlflags} $ld_out$lib_file $o_file $Config{libs} $libs" );
 
   eval {require XSTest};
   ok $@, '';
@@ -51,10 +68,15 @@ if (have_compiler()) {
 
 sub find_in_path {
   my $thing = shift;
-  my @path = split ':', $ENV{PATH};
+  my @path = split $Config{path_sep}, $ENV{PATH};
+  my @exe_ext = $^O eq 'MSWin32' ?
+    split($Config{path_sep}, $ENV{PATHEXT} || '.com;.exe;.bat') :
+    ('');
   foreach (@path) {
     my $fullpath = File::Spec->catfile($_, $thing);
-    return $fullpath if -e $fullpath;
+    foreach my $ext ( @exe_ext ) {
+      return "$fullpath$ext" if -e "$fullpath$ext";
+    }
   }
   return;
 }
