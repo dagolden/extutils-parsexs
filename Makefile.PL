@@ -18,7 +18,7 @@ WriteMakefile
                        "cp -f README $dir-\$(VERSION); "
                       ),
              },
-   'clean' => {FILES => "t/XSTest.c t/XSTest.o"},
+   'clean' => {FILES => "t/XSTest.c t/XSTest.$Config{obj_ext} t/XSTest.$Config{dlext}"},
    'PREREQ_PM' => {
 		   Cwd => 0,
 		   Config => 0,
