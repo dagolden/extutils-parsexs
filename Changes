@@ -1,5 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.07
+
+ - Fixed a minor documentation error (look in 'Changes' for revision
+   history, not 'changes.pod'). [Scott R. Godin]
+
 2.06  Fri Dec 26 09:00:47 CST 2003
 
  - Some fixes in the regression tests for the AIX platform.
