@@ -71,8 +71,8 @@ FUNCTIONS
         optimize
             Enables certain optimizations. The only optimization that is
             currently affected is the use of *target*s by the output C code (see
-            the perlguts manpage). This may significantly slow down the
-            generated code, but this is the way xsubpp of 5.005 and earlier
+            the perlguts manpage). Not optimizing may significantly slow down
+            the generated code, but this is the way xsubpp of 5.005 and earlier
             operated. Default is to optimize.
 
         inout
@@ -83,7 +83,11 @@ FUNCTIONS
             Enable recognition of ANSI-like descriptions of function signature.
             Default is true.
 
-        s   I have no clue what this does.
+        s   I have no clue what this does. Strips function prefixes?
+
+    errors()
+        This function returns the number of [a certain kind of] errors
+        encountered during processing of the XS file.
 
 AUTHOR
     Original code for ExtUtils::xsubpp script was written by Larry Wall.

@@ -3,5 +3,7 @@ INSTALL
 MANIFEST
 Makefile.PL
 lib/ExtUtils/ParseXS.pm
+lib/ExtUtils/xsubpp
+t/XSTest.pm
 t/XSTest.xs
 t/basic.t
