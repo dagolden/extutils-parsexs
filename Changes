@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.05
+
+ - We no longer trim the directory portions from the "#line " comments
+   in the generated C code.  This helps cooperation with many editors'
+   auto-jump-to-error stuff. [Ross McFarland]
+
 2.04  Thu Sep  4 13:10:59 CDT 2003
 
  - Added a COPYRIGHT section to the documentation.  [Spotted by Ville
