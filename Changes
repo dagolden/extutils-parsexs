@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+1.99_01
+
+ - Will now install to the 'core' perl module directory instead of to
+   'site_perl' or the like, because this is the only place MakeMaker
+   will look for the xsubpp script.
+
 1.99  Wed Feb  5 10:07:47 PST 2003
 
  - Version bump to 1.99 so it doesn't look like a 'beta release' to
