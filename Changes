@@ -1,6 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-1.99_01
+2.01
+
+ - Allow -C++ flag for backward compatibility.  It's a no-op, and has
+   been since perl5.003_07. [crazyinsomniac@yahoo.com]
+
+2.00  Sun Feb 23 16:40:17 CST 2003
 
  - Tests now function under all three of the supported compilers on
    Windows environments. [Randy W. Sims]
