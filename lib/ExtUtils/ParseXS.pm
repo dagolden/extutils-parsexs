@@ -286,7 +286,7 @@ EOM
 
 EOF
 
-  print "$ExtUtils::ParseXS::CountLines::SECTION_END_MARKER\n" if $WantLineNumbers;
+  print 'ExtUtils::ParseXS::CountLines'->end_marker, "\n" if $WantLineNumbers;
 
   $lastline    = $_;
   $lastline_no = $.;
@@ -1024,7 +1024,7 @@ sub print_section {
     for (;  defined($_) && !/^$BLOCK_re/o;  $_ = shift(@line)) {
 	print "$_\n";
     }
-    print "$ExtUtils::ParseXS::CountLines::SECTION_END_MARKER\n" if $WantLineNumbers;
+    print 'ExtUtils::ParseXS::CountLines'->end_marker, "\n" if $WantLineNumbers;
 }
 
 sub merge_section {
@@ -1851,7 +1851,9 @@ sub UNTIE {
   # This sub does nothing, but is neccessary for references to be released.
 }
 
-
+sub end_marker {
+  return $SECTION_END_MARKER;
+}
 
 
 1;
