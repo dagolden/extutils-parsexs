@@ -272,7 +272,7 @@ EOM
 	  # the "" we write must be a string literal. And they aren't
 	  # concatenated until 2 steps later, so we are safe.
 	  #     - Nicholas Clark
-	  print("#if 0\n  \"Skipped embedded POD.\"\n#endif\n")
+	  print("#if 0\n  \"Skipped embedded POD.\"\n#endif\n");
 	  printf("#line %d \"$filepathname\"\n", $. + 1)
 	    if $WantLineNumbers;
 	  next firstmodule
