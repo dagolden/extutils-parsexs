@@ -1,6 +1,6 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.09
+2.09  Sun Mar 27 11:11:49 CST 2005
 
  - Integrated change #18270 from the perl core, which fixed a problem
    in which xsubpp can make nested comments in C code (which is

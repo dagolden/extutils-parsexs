@@ -5,15 +5,14 @@ WriteMakefile
           'NAME' => 'ExtUtils::ParseXS',
           'VERSION_FROM' => 'lib/ExtUtils/ParseXS.pm',
           'PREREQ_PM' => {
-                           'ExtUtils::CBuilder' => 0,
-                           'File::Spec' => 0,
-                           'File::Basename' => 0,
-                           'Config' => 0,
-                           'Cwd' => 0,
-                           'Exporter' => 0
+                           'Config' => '0',
+                           'Cwd' => '0',
+                           'Exporter' => '0',
+                           'ExtUtils::CBuilder' => '0',
+                           'File::Basename' => '0',
+                           'File::Spec' => '0'
                          },
           'INSTALLDIRS' => 'perl',
-          'PL_FILES' => {},
-          'NO_META' => 1,
+          'PL_FILES' => {}
         )
 ;
