@@ -6,6 +6,11 @@ Revision history for Perl extension ExtUtils::ParseXS.
    in which xsubpp can make nested comments in C code (which is
    bad). [Nicholas Clark]
 
+ - When no "MODULE ... PACKAGE ... PREFIX" line is found, it's now
+   still a fatal error for ParseXS, but we exit with status 0, which
+   is what the old xsubpp did and seems to work best with some modules
+   like Win32::NetAdmin.  See RT ticket 11472. [Steve Hay]
+
 2.08  Fri Feb 20 21:41:22 CST 2004
 
  - Fixed a problem with backslashes in file paths (e.g. C:\Foo\Bar.xs)

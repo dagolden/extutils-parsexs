@@ -290,7 +290,10 @@ EOM
     
     print $_;
   }
-  die "Didn't find a 'MODULE ... PACKAGE ... PREFIX' line\n" unless defined $_;
+  unless (defined $_) {
+    warn "Didn't find a 'MODULE ... PACKAGE ... PREFIX' line\n";
+    exit 0; # Not a fatal error for the caller process
+  }
 
     print <<"EOF";
 #ifndef PERL_UNUSED_VAR
