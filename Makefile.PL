@@ -19,6 +19,8 @@ WriteMakefile
                       ),
              },
    'clean' => {FILES => "t/XSTest.c t/XSTest.$Config{obj_ext} t/XSTest.$Config{dlext}"},
+   'INSTALLDIRS' => 'perl', # Install in the core perl directory, not site_perl,
+                            # because that's where MakeMaker will look.
    'PREREQ_PM' => {
 		   Cwd => 0,
 		   Config => 0,
