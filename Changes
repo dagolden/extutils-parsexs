@@ -1,5 +1,9 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.06  Fri Dec 26 09:00:47 CST 2003
+
+ - Some fixes in the regression tests for the AIX platform.
+
 2.05  Mon Sep 29 10:33:39 CDT 2003
 
  - We no longer trim the directory portions from the "#line " comments

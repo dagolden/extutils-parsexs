@@ -7,3 +7,4 @@ lib/ExtUtils/xsubpp
 t/XSTest.pm
 t/XSTest.xs
 t/basic.t
+META.yml                                 Module meta-data (added by MakeMaker)
