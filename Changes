@@ -1,5 +1,14 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.08  Fri Feb 20 21:41:22 CST 2004
+
+ - Fixed a problem with backslashes in file paths (e.g. C:\Foo\Bar.xs)
+   disappearing in error messages. [Randy Sims, Steve Hay]
+
+ - Did a little minor internal code cleanup in the
+   ExtUtils::ParseXS::CountLines class, now other classes don't poke
+   around in its package variables.
+
 2.07  Sun Jan 25 17:01:52 CST 2004
 
  - We now use ExtUtils::CBuilder for testing the compile/build phase

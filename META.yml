@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: ExtUtils-ParseXS
-version: 2.07_01
+version: 2.08
 author:
   - Based on xsubpp code, written by Larry Wall.
   - Maintained by Ken Williams, <ken@mathforum.org>
@@ -17,5 +17,5 @@ build_requires:
 provides:
   ExtUtils::ParseXS:
     file: lib/ExtUtils/ParseXS.pm
-    version: 2.07_01
+    version: 2.08
 generated_by: Module::Build version 0.23
