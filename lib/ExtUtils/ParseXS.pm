@@ -78,6 +78,7 @@ sub process_file {
   
   for ($args{filename}) {
     die "Missing required parameter 'filename'" unless $_;
+    $filepathname = $_;
     ($dir, $filename) = (dirname($_), basename($_));
     $IncludedFiles{$_}++;
   }
@@ -106,7 +107,7 @@ sub process_file {
     if ( $args{outfile} ) {
       $cfile = $args{outfile};
     } else {
-      $cfile = $filename;
+      $cfile = $filepathname;
       $cfile =~ s/\.xs$/.c/i or $cfile .= ".c";
     }
     tie(*PSEUDO_STDOUT, 'ExtUtils::ParseXS::CountLines', $cfile, $args{output});
@@ -232,7 +233,7 @@ sub process_file {
 EOM
 
 
-  print("#line 1 \"$filename\"\n")
+  print("#line 1 \"$filepathname\"\n")
     if $WantLineNumbers;
 
   firstmodule:
@@ -242,7 +243,7 @@ EOM
       do {
 	if (/^=cut\s*$/) {
 	  print("/* Skipped embedded POD. */\n");
-	  printf("#line %d \"$filename\"\n", $. + 1)
+	  printf("#line %d \"$filepathname\"\n", $. + 1)
 	    if $WantLineNumbers;
 	  next firstmodule
 	}
@@ -361,7 +362,7 @@ EOF
 
     if (check_keyword("BOOT")) {
       &check_cpp;
-      push (@BootCode, "#line $line_no[@line_no - @line] \"$filename\"")
+      push (@BootCode, "#line $line_no[@line_no - @line] \"$filepathname\"")
 	if $WantLineNumbers && $line[0] !~ /^\s*#\s*line\b/;
       push (@BootCode, @line, "") ;
       next PARAGRAPH ;
@@ -993,7 +994,7 @@ sub print_section {
     # the "do" is required for right semantics
     do { $_ = shift(@line) } while !/\S/ && @line;
 
-    print("#line ", $line_no[@line_no - @line -1], " \"$filename\"\n")
+    print("#line ", $line_no[@line_no - @line -1], " \"$filepathname\"\n")
 	if $WantLineNumbers && !/^\s*#\s*line\b/ && !/^#if XSubPPtmp/;
     for (;  defined($_) && !/^$BLOCK_re/o;  $_ = shift(@line)) {
 	print "$_\n";
