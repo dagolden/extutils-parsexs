@@ -95,6 +95,7 @@ sub process_file {
     die "Missing required parameter 'filename'" unless $_;
     $filepathname = $_;
     ($dir, $filename) = (dirname($_), basename($_));
+    $filepathname =~ s/\\/\\\\/g;
     $IncludedFiles{$_}++;
   }
   
@@ -122,7 +123,7 @@ sub process_file {
     if ( $args{outfile} ) {
       $cfile = $args{outfile};
     } else {
-      $cfile = $filepathname;
+      $cfile = $args{filename};
       $cfile =~ s/\.xs$/.c/i or $cfile .= ".c";
     }
     tie(*PSEUDO_STDOUT, 'ExtUtils::ParseXS::CountLines', $cfile, $args{output});
@@ -1812,6 +1813,7 @@ use vars qw($SECTION_END_MARKER);
 
 sub TIEHANDLE {
   my ($class, $cfile, $fh) = @_;
+  $cfile =~ s/\\/\\\\/g;
   $SECTION_END_MARKER = qq{#line --- "$cfile"};
   
   return bless {buffer => '',
