@@ -6,6 +6,11 @@ Revision history for Perl extension ExtUtils::ParseXS.
    in the generated C code.  This helps cooperation with many editors'
    auto-jump-to-error stuff. [Ross McFarland]
 
+ - In some cases the PERL_UNUSED_VAR macro is needed to get rid of C
+   compile-time warnings in generated code.  Since this eliminates so
+   many warnings, turning on "-Wall -W" (or your platform's
+   equivalent) can once again be helpful. [Ross McFarland]
+
 2.04  Thu Sep  4 13:10:59 CDT 2003
 
  - Added a COPYRIGHT section to the documentation.  [Spotted by Ville
