@@ -4,7 +4,7 @@
 #########################
 
 use Test;
-BEGIN { plan tests => 4 };
+BEGIN { plan tests => 9 };
 use ExtUtils::ParseXS qw(process_file);
 ok(1); # If we made it this far, we're loaded.
 
@@ -22,19 +22,35 @@ process_file( filename => 'XSTest.xs', output => \*FH, prototypes => 0 );
 ok tied(*FH)->content, '/is_even/', "Test that output contains some text";
 
 
-process_file( filename => 'XSTest.xs', output => 'XSTest.c', prototypes => 0);
+process_file( filename => 'XSTest.xs', output => 'XSTest.c', prototypes => 0 );
 ok -e 'XSTest.c', 1, "Create an output file";
 
 # Try to compile it!  Don't get too fancy, though.
-if ($Config{cc}) {
+if ($Config{cc} && $Config{ld}) {
   my $corelib = File::Spec->catdir($Config{archlib}, 'CORE');
-  my $command = "$Config{cc} -c $Config{ccflags} -I$corelib -o XSTest.o XSTest.c";
+  my $o_file = "XSTest.$Config{obj_ext}";
+
+  ok !do_system("$Config{cc} -c $Config{ccflags} -I$corelib -o $o_file XSTest.c");
+  ok -e $o_file, 1, "Make sure $o_file exists";
   
-  print "$command\n";
-  ok !system($command);
+  my $lib_file = "XSTest.$Config{dlext}";
+  ok !do_system("$Config{shrpenv} $Config{ld} $Config{lddlflags} -o $lib_file $o_file");
+
+  eval {require XSTest};
+  ok $@, '';
+  ok  XSTest::is_even(8);
+  ok !XSTest::is_even(9);
+
 } else {
-  skip "Skipped can't find a C compiler", 1;
+  skip "Skipped can't find a C compiler & linker", 1 for 1..3;
 }
+
+sub do_system {
+  my $cmd = shift;
+  print "$cmd\n";
+  return system($cmd);
+}
+
 
 sub Foo::TIEHANDLE { bless {}, 'Foo' }
 sub Foo::PRINT { shift->{buf} .= join '', @_ }
