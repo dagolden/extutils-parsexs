@@ -795,7 +795,7 @@ EOF
 	push @proto_arg, "$s\@"
 	  if $elipsis ;
 	
-	$proto = join ("", @proto_arg);
+	$proto = join ("", grep defined, @proto_arg);
       }
       else {
 	# User has specified a prototype
