@@ -560,13 +560,19 @@ EOF
 #	Perl_croak(aTHX_ "Usage: $pname($report_args)");
 EOF
     
-    #gcc -Wall: if an xsub has no arguments and PPCODE is used
-    #it is likely none of ST, XSRETURN or XSprePUSH macros are used
+     # cv doesn't seem to be used, in most cases unless we go in 
+     # the if of this else
+     print Q(<<"EOF");
+#    PERL_UNUSED_VAR(cv); /* -W */
+EOF
+
+    #gcc -Wall: if an xsub has PPCODE is used
+    #it is possible none of ST, XSRETURN or XSprePUSH macros are used
     #hence `ax' (setup by dXSARGS) is unused
     #XXX: could breakup the dXSARGS; into dSP;dMARK;dITEMS
     #but such a move could break third-party extensions
-    print Q(<<"EOF") if $PPCODE and $num_args == 0;
-#   PERL_UNUSED_VAR(ax); /* -Wall */
+    print Q(<<"EOF") if $PPCODE;
+#    PERL_UNUSED_VAR(ax); /* -Wall */
 EOF
 
     print Q(<<"EOF") if $PPCODE;
@@ -593,10 +599,10 @@ EOF
       $deferred = "";
       %arg_list = () ;
       $gotRETVAL = 0;
-      
+	
       INPUT_handler() ;
       process_keyword("INPUT|PREINIT|INTERFACE_MACRO|C_ARGS|ALIAS|ATTRS|PROTOTYPE|SCOPE|OVERLOAD") ;
-      
+
       print Q(<<"EOF") if $ScopeThisXSUB;
 #   ENTER;
 #   [[
@@ -887,6 +893,11 @@ EOF
 
   print Q("#\n");
 
+  print Q(<<"EOF");
+#    PERL_UNUSED_VAR(cv); /* -W */
+#    PERL_UNUSED_VAR(items); /* -W */
+EOF
+    
   print Q(<<"EOF") if $WantVersionChk ;
 #    XS_VERSION_BOOTCHECK ;
 #
