@@ -2,6 +2,9 @@ Revision history for Perl extension ExtUtils::ParseXS.
 
 1.99_01
 
+ - Tests now function under all three of the supported compilers on
+   Windows environments. [Randy W. Sims]
+
  - Will now install to the 'core' perl module directory instead of to
    'site_perl' or the like, because this is the only place MakeMaker
    will look for the xsubpp script.
