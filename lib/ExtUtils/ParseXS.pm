@@ -1805,7 +1805,8 @@ sub map_type {
 
 
 #########################################################
-package ExtUtils::ParseXS::CountLines;
+package
+  ExtUtils::ParseXS::CountLines;
 use strict;
 use vars qw($SECTION_END_MARKER);
 
