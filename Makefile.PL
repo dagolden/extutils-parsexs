@@ -1,6 +1,7 @@
 
 use ExtUtils::MakeMaker;
 use Config;
+use 5.006;
 
 my $module = 'ExtUtils::ParseXS';
 my ($file, $dir);

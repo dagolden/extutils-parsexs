@@ -1,5 +1,6 @@
 package ExtUtils::ParseXS;
 
+use 5.006;  # We use /??{}/ in regexes
 use Cwd;
 use Config;
 use File::Basename;
