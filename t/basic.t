@@ -14,6 +14,8 @@ use File::Spec;
 
 chdir 't';
 
+use Carp; $SIG{__WARN__} = \&Carp::cluck;
+
 #########################
 
 # Try sending to filehandle
@@ -28,7 +30,7 @@ ok -e 'XSTest.c', 1, "Create an output file";
 # Try to compile the file!  Don't get too fancy, though.
 if (have_compiler()) {
   my $corelib = File::Spec->catdir($Config{archlib}, 'CORE');
-  my $o_file = "XSTest.$Config{obj_ext}";
+  my $o_file = "XSTest$Config{obj_ext}";
 
   ok !do_system("$Config{cc} -c $Config{ccflags} -I$corelib -o $o_file XSTest.c");
   ok -e $o_file, 1, "Make sure $o_file exists";
