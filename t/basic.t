@@ -26,7 +26,7 @@ process_file( filename => 'XSTest.xs', output => 'XSTest.c', prototypes => 0 );
 ok -e 'XSTest.c', 1, "Create an output file";
 
 # Try to compile the file!  Don't get too fancy, though.
-if ($Config{cc} && $Config{ld}) {
+if (have_compiler()) {
   my $corelib = File::Spec->catdir($Config{archlib}, 'CORE');
   my $o_file = "XSTest.$Config{obj_ext}";
 
@@ -42,7 +42,32 @@ if ($Config{cc} && $Config{ld}) {
   ok !XSTest::is_even(9);
 
 } else {
-  skip "Skipped can't find a C compiler & linker", 1 for 1..3;
+  skip "Skipped can't find a C compiler & linker", 1 for 1..6;
+}
+
+#####################################################################
+
+sub find_in_path {
+  my $thing = shift;
+  my @path = split ':', $ENV{PATH};
+  foreach (@path) {
+    my $fullpath = File::Spec->catfile($_, $thing);
+    return $fullpath if -e $fullpath;
+  }
+  return;
+}
+
+sub have_compiler {
+  my %things;
+  foreach (qw(cc ld)) {
+    return 0 unless $Config{$_};
+    $things{$_} = (File::Spec->file_name_is_absolute($Config{cc}) ?
+		   $Config{cc} :
+		   find_in_path($Config{cc}));
+    return 0 unless $things{$_};
+    return 0 unless -x $things{$_};
+  }
+  return 1;
 }
 
 sub do_system {
