@@ -10,7 +10,7 @@ my $usage = "Usage: xsubpp [-v] [-except] [-prototypes] [-noversioncheck] [-noli
 
 Getopt::Long::Configure qw(no_auto_abbrev no_ignore_case);
 
-@ARGV = grep {$_ ne 'C++'} @ARGV;  # Allow -C++ for backward compatibility
+@ARGV = grep {$_ ne '-C++'} @ARGV;  # Allow -C++ for backward compatibility
 GetOptions(\%args, qw(hiertype!
 		      prototypes!
 		      versioncheck!
