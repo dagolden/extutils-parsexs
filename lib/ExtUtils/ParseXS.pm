@@ -1973,9 +1973,9 @@ encountered during processing of the XS file.
 
 =head1 AUTHOR
 
-Original code for ExtUtils::xsubpp script was written by Larry Wall.
+Based on xsubpp code, written by Larry Wall.
 
-Adapted into ExtUtils::ParseXS module by Ken Williams, <ken@mathforum.org>
+Maintained by Ken Williams, <ken@mathforum.org>
 
 =head1 COPYRIGHT
 
