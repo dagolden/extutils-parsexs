@@ -18,14 +18,14 @@ chdir 't';
 
 # Try sending to filehandle
 tie *FH, 'Foo';
-process_file( filename => 'XSTest.xs', output => \*FH, prototypes => 0 );
+process_file( filename => 'XSTest.xs', output => \*FH, prototypes => 1 );
 ok tied(*FH)->content, '/is_even/', "Test that output contains some text";
 
-
+# Try sending to file
 process_file( filename => 'XSTest.xs', output => 'XSTest.c', prototypes => 0 );
 ok -e 'XSTest.c', 1, "Create an output file";
 
-# Try to compile it!  Don't get too fancy, though.
+# Try to compile the file!  Don't get too fancy, though.
 if ($Config{cc} && $Config{ld}) {
   my $corelib = File::Spec->catdir($Config{archlib}, 'CORE');
   my $o_file = "XSTest.$Config{obj_ext}";
