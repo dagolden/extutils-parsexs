@@ -21,6 +21,7 @@ my $BCC   = $Is_MSWin32 && $Config{cc} =~ /bcc32(\.exe)?$/;
 my $MSVC  = $Is_MSWin32 && $Config{cc} =~ /cl(\.exe)?$/;
 my $MinGW = $Is_MSWin32 && $Config{cc} =~ /gcc(\.exe)?$/;
 my $Cygwin = $^O eq 'cygwin';
+my $AIX = $^O eq 'aix';
 
 #########################
 
@@ -98,8 +99,9 @@ sub do_link {
   my $libs      = $Config{libs};
   my $lddlflags = $Config{lddlflags};
   my $ld_out    = '-o ';
+  my $ld        = $Config{ld};
 
-  if ( $Is_MSWin32 or $Cygwin ) {
+  if ( $Is_MSWin32 or $Cygwin or $AIX ) {
     require ExtUtils::Mksymlists;
     ExtUtils::Mksymlists::Mksymlists(
       'NAME' => $module, 'DLBASE' => $module, 'IMPORTS' => {} ) unless $Cygwin;
@@ -118,17 +120,21 @@ sub do_link {
       (my $libperl = $Config{libperl}) =~ s/^(?:lib)?([^.]+).*$/$1/;
       $libs        = "-l$libperl $libs";
       do_system("dlltool --def $module.def --output-exp $module.exp");
-      do_system("$Config{ld} $lddlflags -Wl,--base-file -Wl,$module.base $objs $ld_out$module_lib $libs $module.exp");
+      do_system("$ld $lddlflags -Wl,--base-file -Wl,$module.base $objs $ld_out$module_lib $libs $module.exp");
       do_system("dlltool --def $module.def --output-exp $module.exp --base-file $module.base");
       $module_def  = "$module.exp";
     } elsif ( $Cygwin ) { # MinGW GCC
       (my $libperl = $Config{libperl}) =~ s/^(?:lib)?([^.]+).*$/$1/;
       $libs        = "-L$Config{archlibexp}/CORE -l$libperl $libs";
-      do_system("$Config{shrpenv} $Config{ld} $lddlflags -Wl,--base-file -Wl,$module.base $objs $ld_out$module_lib $libs");
+      do_system("$Config{shrpenv} $ld $lddlflags -Wl,--base-file -Wl,$module.base $objs $ld_out$module_lib $libs");
+    }
+    if ( $AIX ) {
+      $ld =~ s{\$\(BASEEXT\)} {$module}g;
+      $ld =~ s{\$\(PERL_INC\)}{$Config{perl_archlib}/CORE}g;
     }
   }
 
-  return !do_system("$Config{shrpenv} $Config{ld} $lddlflags $objs $ld_out$module_lib $libs $module_def");
+  return !do_system("$Config{shrpenv} $ld $lddlflags $objs $ld_out$module_lib $libs $module_def");
 }
 
 sub do_system {
