@@ -1,7 +1,12 @@
-^\.
 ^README$
 ^ExtUtils-
 ^Makefile$
+^Build$
 CVS
 ^MANIFEST\.
-
+^_build
+^blib
+(^|/)\.
+\.bundle$
+\.c$
+\.o$

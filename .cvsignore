@@ -2,3 +2,6 @@ Makefile
 ExtUtils-ParseXS-*
 .lwpcookies
 blibdirs
+blib
+_build
+Build
