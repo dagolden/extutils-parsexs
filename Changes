@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.03
+
+ - Fixed a warning that occurs if a regular expression (buried deep
+   within the bowels of the code here) fails.  [Spotted by Michael
+   Schwern]
+
 2.02  Sun Mar 30 18:20:12 CST 2003
 
  - Now that we know this module doesn't work (yet?) with perl 5.005,
