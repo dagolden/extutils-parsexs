@@ -5,6 +5,9 @@ Revision history for Perl extension ExtUtils::ParseXS.
  - Version bump to 1.99 so it doesn't look like a 'beta release' to
    CPAN.pm.  No code changes, since I haven't had any bug reports.
 
+ - Fixed a minor problem in the regression tests that was creating an
+   XSTest..o file instead of XSTest.o
+
 1.98_01  Mon Dec  9 11:50:41 EST 2002
 
  - Converted from ExtUtils::xsubpp in bleadperl
