@@ -1,0 +1,7 @@
+Changes
+INSTALL
+MANIFEST
+Makefile.PL
+lib/ExtUtils/ParseXS.pm
+t/XSTest.xs
+t/basic.t
