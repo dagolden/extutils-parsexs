@@ -140,11 +140,12 @@ No environment variables are used.
 
 =head1 AUTHOR
 
-Larry Wall
+Originally by Larry Wall.  Turned into the C<ExtUtils::ParseXS> module
+by Ken Williams.
 
 =head1 MODIFICATION HISTORY
 
-See the file F<changes.pod>.
+See the file F<Changes>.
 
 =head1 SEE ALSO
 
