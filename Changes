@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.09
+
+ - Integrated change #18270 from the perl core, which fixed a problem
+   in which xsubpp can make nested comments in C code (which is
+   bad). [Nicholas Clark]
+
 2.08  Fri Feb 20 21:41:22 CST 2004
 
  - Fixed a problem with backslashes in file paths (e.g. C:\Foo\Bar.xs)
