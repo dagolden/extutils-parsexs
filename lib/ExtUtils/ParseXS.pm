@@ -10,7 +10,7 @@ require Exporter;
 
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(process_file);
-$VERSION = '2.03';
+$VERSION = '2.04';
 
 #use strict;  # That'll always be the dream...
 
