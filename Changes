@@ -6,6 +6,8 @@ Revision history for Perl extension ExtUtils::ParseXS.
    within the bowels of the code here) fails.  [Spotted by Michael
    Schwern]
 
+ - Fixed a testing error on Cygwin. [Reini Urban]
+
 2.02  Sun Mar 30 18:20:12 CST 2003
 
  - Now that we know this module doesn't work (yet?) with perl 5.005,
