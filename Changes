@@ -11,6 +11,10 @@ Revision history for Perl extension ExtUtils::ParseXS.
    many warnings, turning on "-Wall -W" (or your platform's
    equivalent) can once again be helpful. [Ross McFarland]
 
+ - Did a huge amount of variable-scoping cleanup, and it *still*
+   doesn't compile under 'use strict;'.  Much progress was made
+   though, and many scoping issues were fixed.
+
 2.04  Thu Sep  4 13:10:59 CDT 2003
 
  - Added a COPYRIGHT section to the documentation.  [Spotted by Ville
