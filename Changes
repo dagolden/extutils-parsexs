@@ -1,11 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.04
+2.04  Thu Sep  4 13:10:59 CDT 2003
 
  - Added a COPYRIGHT section to the documentation.  [Spotted by Ville
    Skytta]
 
-2.03
+2.03  Sat Aug 16 17:49:03 CST 2003
 
  - Fixed a warning that occurs if a regular expression (buried deep
    within the bowels of the code here) fails.  [Spotted by Michael

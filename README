@@ -94,6 +94,15 @@ AUTHOR
 
     Adapted into ExtUtils::ParseXS module by Ken Williams, <ken@mathforum.org>
 
+COPYRIGHT
+    Copyright 2002-2003 Ken Williams. All rights reserved.
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    Based on the ExtUtils::xsubpp code by Larry Wall and the Perl 5 Porters,
+    which was released under the same license terms.
+
 SEE ALSO
     the perl manpage, ExtUtils::xsubpp, ExtUtils::MakeMaker, the perlxs manpage,
     the perlxstut manpage.
