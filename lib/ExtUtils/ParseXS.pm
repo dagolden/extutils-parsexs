@@ -1952,6 +1952,16 @@ Original code for ExtUtils::xsubpp script was written by Larry Wall.
 
 Adapted into ExtUtils::ParseXS module by Ken Williams, <ken@mathforum.org>
 
+=head1 COPYRIGHT
+
+Copyright 2002-2003 Ken Williams.  All rights reserved.
+
+This library is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+Based on the ExtUtils::xsubpp code by Larry Wall and the Perl 5
+Porters, which was released under the same license terms.
+
 =head1 SEE ALSO
 
 L<perl>, ExtUtils::xsubpp, ExtUtils::MakeMaker, L<perlxs>, L<perlxstut>.
