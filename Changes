@@ -1,5 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.04
+
+ - Added a COPYRIGHT section to the documentation.  [Spotted by Ville
+   Skytta]
+
 2.03
 
  - Fixed a warning that occurs if a regular expression (buried deep
