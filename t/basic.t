@@ -1,5 +1,13 @@
 #!/usr/bin/perl
 
+BEGIN {
+  if ($ENV{PERL_CORE}) {
+    chdir 't' if -d 't';
+    chdir '../lib/ExtUtils/ParseXS'
+      or die "Can't chdir to lib/ExtUtils/ParseXS: $!";
+    @INC = qw(../.. ../../.. .);
+  }
+}
 use strict;
 use Test;
 BEGIN { plan tests => 10 };
@@ -22,8 +30,11 @@ ok tied(*FH)->content, '/is_even/', "Test that output contains some text";
 process_file( filename => 'XSTest.xs', output => 'XSTest.c', prototypes => 0 );
 ok -e 'XSTest.c', 1, "Create an output file";
 
+# TEST doesn't like extraneous output
+my $quiet = $ENV{PERL_CORE} && !$ENV{HARNESS_ACTIVE};
+
 # Try to compile the file!  Don't get too fancy, though.
-my $b = ExtUtils::CBuilder->new();
+my $b = ExtUtils::CBuilder->new(quiet => $quiet);
 if ($b->have_compiler) {
   my $module = 'XSTest';
 
