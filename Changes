@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.10
+
+ - This module is being integrated into the perl core; the regression
+   tests will now work properly when run as part of the core build.
+   [Yitzchak Scott-Thoennes]
+
 2.09  Sun Mar 27 11:11:49 CST 2005
 
  - Integrated change #18270 from the perl core, which fixed a problem
