@@ -6,6 +6,10 @@ Revision history for Perl extension ExtUtils::ParseXS.
    tests will now work properly when run as part of the core build.
    [Yitzchak Scott-Thoennes]
 
+ - Added the ability to create output files with a suffix other than
+   ".c", via the new "csuffix" option.  This gets the module working
+   on Symbian. [Jarkko Hietaniemi]
+
 2.09  Sun Mar 27 11:11:49 CST 2005
 
  - Integrated change #18270 from the perl core, which fixed a problem
