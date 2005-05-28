@@ -10,6 +10,9 @@ Revision history for Perl extension ExtUtils::ParseXS.
    ".c", via the new "csuffix" option.  This gets the module working
    on Symbian. [Jarkko Hietaniemi]
 
+ - Added the ability to put 'extern "C"' declarations in front of
+   prototypes. [Jarkko Hietaniemi]
+
 2.09  Sun Mar 27 11:11:49 CST 2005
 
  - Integrated change #18270 from the perl core, which fixed a problem
