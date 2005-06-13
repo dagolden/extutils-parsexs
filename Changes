@@ -1,5 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.11
+
+ - Make some variables global, to avoid some "will not stay shared"
+   warnings at compile time
+
 2.10  Mon May 30 21:29:44 CDT 2005
 
  - This module is being integrated into the perl core; the regression
