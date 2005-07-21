@@ -1,5 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.12
+
+ - Do a better job of cleaning up stray files created during
+   testing. [Steve Hay]
+
 2.11  Mon Jun 13 23:00:23 CDT 2005
 
  - Make some variables global, to avoid some "will not stay shared"
