@@ -1,9 +1,15 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.12
+2.12  Wed Aug 24 20:03:09 CDT 2005
 
- - Do a better job of cleaning up stray files created during
-   testing. [Steve Hay]
+ - On Win32, there was a DLL file we create during testing that we
+   couldn't delete unless we closed it first, so testing failed when
+   the deletiong was attempted.  This should now work (provided the
+   version of perl is high enough to have DynaLoader::dl_unload_file()
+   - I'm not sure what will happen otherwise). [Steve Hay]
+
+ - Fix a spurious warning during testing about a variable that's used
+   before it's initialized. [Steve Hay]
 
 2.11  Mon Jun 13 23:00:23 CDT 2005
 

@@ -13,6 +13,7 @@ WriteMakefile
                            'File::Spec' => '0'
                          },
           'INSTALLDIRS' => 'perl',
+          'EXE_FILES' => [],
           'PL_FILES' => {}
         )
 ;
