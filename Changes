@@ -1,5 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.13
+
+ - Integrate a cleanup-related change from bleadperl that somehow
+   never got into this copy. [Steve Hay]
+
 2.12  Wed Aug 24 20:03:09 CDT 2005
 
  - On Win32, there was a DLL file we create during testing that we
