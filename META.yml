@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: ExtUtils-ParseXS
-version: 2.13
+version: 2.14
 author:
   - Maintained by Ken Williams, <ken@mathforum.org>
 abstract: converts Perl XS code into C code
@@ -18,5 +18,5 @@ build_requires:
 provides:
   ExtUtils::ParseXS:
     file: lib/ExtUtils/ParseXS.pm
-    version: 2.13
+    version: 2.14
 generated_by: Module::Build version 0.2702
