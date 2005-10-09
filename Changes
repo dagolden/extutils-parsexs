@@ -1,5 +1,12 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.14
+
+ - The filehandle for the .xs file was never being properly closed,
+   and now it is.  This was causing some Win32 problems with
+   Module::Build's tests, which create a .xs file, process it with
+   ParseXS, and then try to remove it. [Spotted by Randy Sims]
+
 2.13  Mon Oct  3 21:59:06 CDT 2005
 
  - Integrate a cleanup-related change from bleadperl that somehow
