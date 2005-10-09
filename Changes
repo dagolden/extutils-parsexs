@@ -1,6 +1,6 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.14
+2.14  Sat Oct  8 21:49:15 EDT 2005
 
  - The filehandle for the .xs file was never being properly closed,
    and now it is.  This was causing some Win32 problems with
