@@ -1,5 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.15  Mon Oct 10 11:02:13 EDT 2005
+
+ - I accidentally left out a README from the distribution.  Now it's
+   auto-created from the main documentation in ExtUtils/ParseXS.pm.
+
 2.14  Sat Oct  8 21:49:15 EDT 2005
 
  - The filehandle for the .xs file was never being properly closed,

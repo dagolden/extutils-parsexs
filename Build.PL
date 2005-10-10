@@ -18,6 +18,7 @@ my $build = Module::Build->new
 		     },
    add_to_cleanup => ["t/XSTest.c", "t/XSTest$Config{obj_ext}", "t/XSTest.$Config{dlext}"],
    create_makefile_pl => 'traditional',
+   create_readme => 1,
   );
 
 $build->create_build_script;
