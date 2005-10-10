@@ -9,3 +9,4 @@ META.yml			Module meta-data (added by MakeMaker)
 t/basic.t
 t/XSTest.pm
 t/XSTest.xs
+README
