@@ -18,7 +18,7 @@ my(@XSStack);	# Stack of conditionals and INCLUDEs
 my($XSS_work_idx, $cpp_next_tmp);
 
 use vars qw($VERSION);
-$VERSION = '2.15';
+$VERSION = '2.17';
 
 use vars qw(%input_expr %output_expr $ProtoUsed @InitFileCode $FH $proto_re $Overload $errors $Fallback
 	    $cplusplus $hiertype $WantPrototypes $WantVersionChk $except $WantLineNumbers
@@ -456,7 +456,7 @@ EOF
 					     \b ( \w+ | length\( \s*\w+\s* \) )
 					     \s* $ /x);
 	  next unless defined($pre) && length($pre);
-	  my $out_type = '';
+	  my $out_type;
 	  my $inout_var;
 	  if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s+//) {
 	    my $type = $1;
@@ -565,7 +565,11 @@ EOF
 #XS(XS_${Full_func_name}); /* prototype to pass -Wmissing-prototypes */
 #XS(XS_${Full_func_name})
 #[[
+##ifdef dVAR
+#    dVAR; dXSARGS;
+##else
 #    dXSARGS;
+##endif
 EOF
     print Q(<<"EOF") if $ALIAS ;
 #    dXSI32;
@@ -589,12 +593,12 @@ EOF
     if ($ALIAS)
       { print Q(<<"EOF") if $cond }
 #    if ($cond)
-#       Perl_croak(aTHX_ "Usage: %s($report_args)", GvNAME(CvGV(cv)));
+#       Perl_croak(aTHX_ "Usage: %s(%s)", GvNAME(CvGV(cv)), "$report_args");
 EOF
     else
       { print Q(<<"EOF") if $cond }
 #    if ($cond)
-#	Perl_croak(aTHX_ "Usage: $pname($report_args)");
+#       Perl_croak(aTHX_ "Usage: %s(%s)", "$pname", "$report_args");
 EOF
     
      # cv doesn't seem to be used, in most cases unless we go in 
@@ -919,7 +923,11 @@ EOF
 
   print Q(<<"EOF");
 #[[
+##ifdef dVAR
+#    dVAR; dXSARGS;
+##else
 #    dXSARGS;
+##endif
 EOF
 
   #-Wall: if there is no $Full_func_name there are no xsubs in this .xs
@@ -1213,7 +1221,9 @@ sub INTERFACE_handler() {
   TrimWhitespace($in);
 
   foreach (split /[\s,]+/, $in) {
-    $Interfaces{$_} = $_;
+    my $name = $_;
+    $name =~ s/^$Prefix//;
+    $Interfaces{$name} = $_;
   }
   print Q(<<"EOF");
 #	XSFUNCTION = $interface_macro($ret_type,cv,XSANY.any_dptr);
@@ -1438,6 +1448,7 @@ sub INCLUDE_handler ()
 		    Line            => \@line,
 		    LineNo          => \@line_no,
 		    Filename        => $filename,
+		    Filepathname    => $filepathname,
 		    Handle          => $FH,
 		   }) ;
 
@@ -1452,7 +1463,7 @@ sub INCLUDE_handler ()
 #
 EOF
 
-    $filename = $_ ;
+    $filepathname = $filename = $_ ;
 
     # Prime the pump by reading the first
     # non-blank line
@@ -1481,7 +1492,11 @@ sub PopFile()
     close $FH ;
 
     $FH         = $data->{Handle} ;
+    # $filename is the leafname, which for some reason isused for diagnostic
+    # messages, whereas $filepathname is the full pathname, and is used for
+    # #line directives.
     $filename   = $data->{Filename} ;
+    $filepathname = $data->{Filepathname} ;
     $lastline   = $data->{LastLine} ;
     $lastline_no = $data->{LastLineNo} ;
     @line       = @{ $data->{Line} } ;
