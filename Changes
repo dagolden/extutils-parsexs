@@ -1,5 +1,8 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+ - Changed 'use re "eval";' to 'BEGIN { $^H |= 0x00200000 };' so we
+   can compile re.xs in bleadperl. [Yves Orton]
+
  - Fix an undefined-variable warning related to 'inout' parameter
    processing.
 
