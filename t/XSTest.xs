@@ -39,27 +39,27 @@ xstest_something2 (some_thing)
 
 void
 xstest_something3 (myclass, some_thing)
-       SV   * myclass
+	SV   * myclass
 	char * some_thing
     PREINIT:
     	int i = 0;
     PPCODE:
     	/* it's up to us clear these warnings */
-       myclass = myclass;
+	myclass = myclass;
 	some_thing = some_thing;
 	i = i;
 	XSRETURN_UNDEF;
 	
 int
 consts (myclass)
-       SV * myclass
+	SV * myclass
     ALIAS:
 	const_one = 1
 	const_two = 2
 	const_three = 3
     CODE:
     	/* it's up to us clear these warnings */
-       myclass = myclass;
+    	myclass = myclass;
 	ix = ix;
     	RETVAL = 1;
     OUTPUT:
