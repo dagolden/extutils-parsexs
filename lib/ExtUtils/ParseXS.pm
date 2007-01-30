@@ -980,6 +980,13 @@ EOF
     print "\n    /* End of Initialisation Section */\n\n" ;
   }
 
+  if ($] >= 5.009) {
+    print <<'EOF';
+    if (PL_unitcheckav)
+         call_list(PL_scopestack_ix, PL_unitcheckav);
+EOF
+  }
+
   print Q(<<"EOF");
 #    XSRETURN_YES;
 #]]
