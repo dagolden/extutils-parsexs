@@ -12,7 +12,8 @@ my $blead = "~/Downloads/perl/bleadperl";
 
 diff( "$blead/lib/ExtUtils/ParseXS.pm", "lib/ExtUtils/ParseXS.pm");
 
-diff( "$blead/lib/ExtUtils/ParseXS/t", "t" );
+diff( "$blead/lib/ExtUtils/ParseXS/t", "t",
+      '.svn' );
 
 ######################
 sub diff {
