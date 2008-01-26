@@ -1,5 +1,8 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+ - Fixed the treatment of the OVERLOAD: keyword, which was causing a C
+   compile error. [Toshiyuki Yamato]
+
 2.18 - Mon Jan 29 20:56:36 2007
 
  - Added some UNITCHECK stuff, which (I think) makes XS code able to
