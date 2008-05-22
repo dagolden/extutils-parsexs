@@ -193,8 +193,15 @@ sub process_file {
     close(TYPEMAP);
   }
 
-  foreach my $key (keys %input_expr) {
-    $input_expr{$key} =~ s/;*\s+\z//;
+  foreach my $value (values %input_expr) {
+    $value =~ s/;*\s+\z//;
+    # Move C pre-processor instructions to column 1 to be strictly ANSI
+    # conformant. Some pre-processors are fussy about this.
+    $value =~ s/^\s+#/#/mg;
+  }
+  foreach my $value (values %output_expr) {
+    # And again.
+    $value =~ s/^\s+#/#/mg;
   }
 
   my ($cast, $size);
@@ -360,7 +367,7 @@ EOF
 	   ." followed by a statement on column one?)")
       if $line[0] =~ /^\s/;
     
-    my ($class, $externC, $static, $elipsis, $wantRETVAL, $RETVAL_no_return);
+    my ($class, $externC, $static, $ellipsis, $wantRETVAL, $RETVAL_no_return);
     my (@fake_INPUT_pre);	# For length(s) generated variables
     my (@fake_INPUT);
     
@@ -513,7 +520,7 @@ EOF
     my $report_args = '';
     foreach my $i (0 .. $#args) {
       if ($args[$i] =~ s/\.\.\.//) {
-	$elipsis = 1;
+	$ellipsis = 1;
 	if ($args[$i] eq '' && $i == $#args) {
 	  $report_args .= ", ...";
 	  pop(@args);
@@ -577,7 +584,7 @@ EOF
     print Q(<<"EOF") if $INTERFACE ;
 #    dXSFUNCTION($ret_type);
 EOF
-    if ($elipsis) {
+    if ($ellipsis) {
       $cond = ($min_args ? qq(items < $min_args) : 0);
     } elsif ($min_args == $num_args) {
       $cond = qq(items != $min_args);
@@ -842,7 +849,7 @@ EOF
 	  $proto_arg[$min_args] .= ";" ;
 	}
 	push @proto_arg, "$s\@"
-	  if $elipsis ;
+	  if $ellipsis ;
 	
 	$proto = join ("", grep defined, @proto_arg);
       }
@@ -934,7 +941,7 @@ EOF
   #-Wall: if there is no $Full_func_name there are no xsubs in this .xs
   #so `file' is unused
   print Q(<<"EOF") if $Full_func_name;
-#    char* file = __FILE__;
+#    const char* file = __FILE__;
 EOF
 
   print Q("#\n");

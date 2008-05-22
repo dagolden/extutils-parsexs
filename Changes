@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+ - Cleaned up a warning with -Wwrite-strings that gets passed into
+   every parsed XS file. [Steve Peters]
+
+ - Allow (pedantically correct) C pre-processor comments in the code
+   snippets of typemap files. [Nicholas Clark]
+
 2.19 - Sun Feb 17 14:27:40 2008
 
  - Fixed the treatment of the OVERLOAD: keyword, which was causing a C
