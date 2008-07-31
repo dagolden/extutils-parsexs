@@ -18,7 +18,7 @@ my(@XSStack);	# Stack of conditionals and INCLUDEs
 my($XSS_work_idx, $cpp_next_tmp);
 
 use vars qw($VERSION);
-$VERSION = '2.19';
+$VERSION = '2.19_02';
 
 use vars qw(%input_expr %output_expr $ProtoUsed @InitFileCode $FH $proto_re $Overload $errors $Fallback
 	    $cplusplus $hiertype $WantPrototypes $WantVersionChk $except $WantLineNumbers
@@ -305,9 +305,51 @@ EOM
     exit 0; # Not a fatal error for the caller process
   }
 
-    print <<"EOF";
+  print 'ExtUtils::ParseXS::CountLines'->end_marker, "\n" if $WantLineNumbers;
+
+  print <<"EOF";
 #ifndef PERL_UNUSED_VAR
 #  define PERL_UNUSED_VAR(var) if (0) var = var
+#endif
+
+EOF
+
+  print <<"EOF";
+#ifndef PERL_ARGS_ASSERT_CROAK_XS_USAGE
+#define PERL_ARGS_ASSERT_CROAK_XS_USAGE	\
+	assert(cv); assert(params)
+
+/* Copied from universal.c */
+STATIC
+void
+S_croak_xs_usage(pTHX_ const CV *const cv, const char *const params)
+{
+    const GV *const gv = CvGV(cv);
+
+    PERL_ARGS_ASSERT_CROAK_XS_USAGE;
+
+    if (gv) {
+        const char *const gvname = GvNAME(gv);
+        const HV *const stash = GvSTASH(gv);
+        const char *const hvname = stash ? HvNAME_get(stash) : NULL;
+
+        if (hvname)
+            Perl_croak(aTHX_ "Usage: %s::%s(%s)", hvname, gvname, params);
+        else
+            Perl_croak(aTHX_ "Usage: %s(%s)", gvname, params);
+    } else {
+        /* Pants. I don't think that it should be possible to get here. */
+        Perl_croak(aTHX_ "Usage: CODE(0x%"UVxf")(%s)", PTR2UV(cv), params);
+    }
+}
+#undef  PERL_ARGS_ASSERT_CROAK_XS_USAGE
+
+#ifdef PERL_IMPLICIT_CONTEXT
+#define croak_xs_usage(a,b)	S_croak_xs_usage(aTHX_ a,b)
+#else
+#define croak_xs_usage		S_croak_xs_usage
+#endif
+
 #endif
 
 EOF
@@ -597,20 +639,13 @@ EOF
 #    *errbuf = '\0';
 EOF
 
-    if ($ALIAS)
-      { print Q(<<"EOF") if $cond }
+    print Q(<<"EOF") if $cond;
 #    if ($cond)
-#       Perl_croak(aTHX_ "Usage: %s(%s)", GvNAME(CvGV(cv)), "$report_args");
-EOF
-    else
-      { print Q(<<"EOF") if $cond }
-#    if ($cond)
-#       Perl_croak(aTHX_ "Usage: %s(%s)", "$pname", "$report_args");
+#       croak_xs_usage(cv,  "$report_args");
 EOF
     
-     # cv doesn't seem to be used, in most cases unless we go in 
-     # the if of this else
-     print Q(<<"EOF");
+     # cv doesn't seem to be used, unless $cond, above
+     print Q(<<"EOF") unless $cond;
 #    PERL_UNUSED_VAR(cv); /* -W */
 EOF
 
