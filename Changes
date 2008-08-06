@@ -1,5 +1,8 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+ - Fix the usage reports to consistently report package name as well
+   as sub name across ALIAS, INTERFACE and regular XSUBS. [Robert May]
+
  - Cleaned up a warning with -Wwrite-strings that gets passed into
    every parsed XS file. [Steve Peters]
 

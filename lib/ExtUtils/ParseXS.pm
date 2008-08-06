@@ -316,12 +316,13 @@ EOF
 
   print <<"EOF";
 #ifndef PERL_ARGS_ASSERT_CROAK_XS_USAGE
-#define PERL_ARGS_ASSERT_CROAK_XS_USAGE	\
-	assert(cv); assert(params)
+#define PERL_ARGS_ASSERT_CROAK_XS_USAGE assert(cv); assert(params)
 
-/* Copied from universal.c */
-STATIC
-void
+/* prototype to pass -Wmissing-prototypes */
+STATIC void
+S_croak_xs_usage(pTHX_ const CV *const cv, const char *const params);
+
+STATIC void
 S_croak_xs_usage(pTHX_ const CV *const cv, const char *const params)
 {
     const GV *const gv = CvGV(cv);
@@ -331,7 +332,7 @@ S_croak_xs_usage(pTHX_ const CV *const cv, const char *const params)
     if (gv) {
         const char *const gvname = GvNAME(gv);
         const HV *const stash = GvSTASH(gv);
-        const char *const hvname = stash ? HvNAME_get(stash) : NULL;
+        const char *const hvname = stash ? HvNAME(stash) : NULL;
 
         if (hvname)
             Perl_croak(aTHX_ "Usage: %s::%s(%s)", hvname, gvname, params);
@@ -639,15 +640,17 @@ EOF
 #    *errbuf = '\0';
 EOF
 
-    print Q(<<"EOF") if $cond;
+    if($cond) {
+    print Q(<<"EOF");
 #    if ($cond)
 #       croak_xs_usage(cv,  "$report_args");
 EOF
-    
-     # cv doesn't seem to be used, unless $cond, above
-     print Q(<<"EOF") unless $cond;
+    } else {
+    # cv likely to be unused
+    print Q(<<"EOF");
 #    PERL_UNUSED_VAR(cv); /* -W */
 EOF
+    }
 
     #gcc -Wall: if an xsub has PPCODE is used
     #it is possible none of ST, XSRETURN or XSprePUSH macros are used
