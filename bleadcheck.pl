@@ -18,7 +18,7 @@ diff( "$blead/lib/ExtUtils/ParseXS/t", "t",
 ######################
 sub diff {
   my ($first, $second, @skip) = @_;
-  local $_ = `diff -ur $first $second`;
+  local $_ = `diff -Nur -x .svn $first $second`;
 
   for my $x (@skip) {
     s/^Only in .* $x\n//m;
