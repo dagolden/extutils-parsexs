@@ -1,5 +1,7 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.20 - coming soon
+
 2.19_02 - Wed Aug  6 22:18:33 2008
 
  - Fix the usage reports to consistently report package name as well
