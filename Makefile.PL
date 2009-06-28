@@ -9,9 +9,12 @@ WriteMakefile
           'VERSION_FROM' => 'lib/ExtUtils/ParseXS.pm',
           'PREREQ_PM' => {
                            'File::Spec' => 0,
-                           'File::Basename' => 0,
+                           'Symbol' => 0,
                            'Exporter' => 0,
-                           'Config' => 0,
+                           'Carp' => 0,
+                           'Test::More' => '0.47',
+                           'File::Basename' => 0,
+                           'DynaLoader' => 0,
                            'ExtUtils::CBuilder' => 0,
                            'Cwd' => 0
                          }
