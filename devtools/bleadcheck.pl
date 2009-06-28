@@ -12,7 +12,7 @@ chdir shift() if @ARGV;
 
 
 diff( "$blead/lib/ExtUtils/ParseXS.pm", "lib/ExtUtils/ParseXS.pm");
-
+diff( "$blead/lib/ExtUtils/xsubpp", "lib/ExtUtils/xsubpp");
 diff( "$blead/lib/ExtUtils/ParseXS", "lib/ExtUtils/ParseXS",
       qw(t Changes .svn) );
 
