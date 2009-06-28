@@ -6,6 +6,7 @@ my $build = Module::Build->new
    module_name => 'ExtUtils::ParseXS',
    license => 'perl',
    installdirs => 'core',
+   auto_configure_requires => 0,
    requires => {
 		'Cwd' => 0,
 		'Config' => 0,
