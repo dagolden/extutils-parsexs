@@ -6,10 +6,10 @@ lib/ExtUtils/xsubpp
 Makefile.PL
 MANIFEST
 META.yml			Module meta-data (added by MakeMaker)
+README
 t/basic.t
 t/usage.t
 t/XSTest.pm
 t/XSTest.xs
 t/XSUsage.pm
 t/XSUsage.xs
-README
