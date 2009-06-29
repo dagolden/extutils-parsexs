@@ -14,7 +14,12 @@ use Config;
 use DynaLoader;
 use ExtUtils::CBuilder;
 
-plan tests => 24;
+if ( $] < 5.008 ) {
+  plan skip_all => "INTERFACE keyword support broken before 5.8";
+}
+else {
+  plan tests => 24;
+}
 
 my ($source_file, $obj_file, $lib_file, $module);
 

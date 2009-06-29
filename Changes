@@ -6,6 +6,8 @@ Revision history for Perl extension ExtUtils::ParseXS.
 
  - Some tests skip if no compiler or if no dynamic loading
 
+ - INTERFACE keyword tests skipped for perl < 5.8
+
 2.19_03 - Sat Jun 27 22:51:18 EDT 2009
 
  - Released to see updated results from smoke testers
