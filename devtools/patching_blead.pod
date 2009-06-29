@@ -24,6 +24,8 @@ tarball from CPAN.
 Run the add-packages.pl program from ~/git/perl/Porting to create a 
 new git branch and copy in ExtUtils::ParseXS files.  
 
+  $ perl ~/git/perl/Porting/add-package.pl -v -r ~/git/perl 
+
 =head2 Verifying and editing the branch
 
 After add-packages.pl finishes, ~/git/perl will be on the new branch. Verify
