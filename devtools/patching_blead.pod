@@ -26,6 +26,11 @@ new git branch and copy in ExtUtils::ParseXS files.
 
   $ perl ~/git/perl/Porting/add-package.pl -v -r ~/git/perl 
 
+Copy xsubpp and the Changes file manually
+
+  $ cp lib/ExtUtils/xsubpp ~/git/perl/lib/ExtUtils/xsubpp
+  $ cp Changes ~/git/perl/lib/ExtUtils/ParseXS/Changes
+
 =head2 Verifying and editing the branch
 
 After add-packages.pl finishes, ~/git/perl will be on the new branch. Verify
