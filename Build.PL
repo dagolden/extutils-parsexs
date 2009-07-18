@@ -1,11 +1,19 @@
 use Module::Build;
 use Config;
 
-my $build = Module::Build->new
+my $class = Module::Build->subclass(code => <<'EOF');
+  sub do_create_makefile_pl {
+    my $self = shift;
+    $self->SUPER::do_create_makefile_pl(fh => $fh);
+    $self->do_system(qw(perl -pi -e), q{s/'INSTALLDIRS' => '\w+'/'INSTALLDIRS' => (\$] >= 5.009003 ? 'perl' : 'site')/}, 'Makefile.PL');
+  }
+EOF
+
+my $build = $class->new
   (
    module_name => 'ExtUtils::ParseXS',
    license => 'perl',
-   installdirs => 'core',
+   installdirs => ($] >= 5.009003 ? 'core' : 'site'),
    auto_configure_requires => 0,
    requires => {
      'Cwd' => 0,

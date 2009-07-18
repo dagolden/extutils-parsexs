@@ -28,6 +28,7 @@ Plugin
 ^bleadcheck.pl$
 ^blib
 ^configs
+^cover_db
 ^devtools
 ^inc
 ^kwiki

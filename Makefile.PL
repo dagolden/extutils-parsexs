@@ -3,7 +3,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile
 (
           'PL_FILES' => {},
-          'INSTALLDIRS' => 'perl',
+          'INSTALLDIRS' => ($] >= 5.009003 ? 'perl' : 'site'),
           'NAME' => 'ExtUtils::ParseXS',
           'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/ExtUtils/ParseXS.pm',
