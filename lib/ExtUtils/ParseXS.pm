@@ -555,7 +555,7 @@ EOF
       my $arg0 = ((defined($static) or $func_name eq 'new')
 		  ? "CLASS" : "THIS");
       unshift(@args, $arg0);
-      ($report_args = "$arg0, $report_args") =~ s/^\w+, $/$arg0/;
+#      ($report_args = "$arg0, $report_args") =~ s/^\w+, $/$arg0/;
     }
     my $extra_args = 0;
     @args_num = ();
@@ -1160,7 +1160,7 @@ sub INPUT_handler {
       print "\tSTRLEN\tSTRLEN_length_of_$2;\n";
       $lengthof{$2} = $name;
       # $islengthof{$name} = $1;
-      $deferred .= "\n\tXSauto_length_of_$2 = STRLEN_length_of_$2;";
+      $deferred .= "\n\tXSauto_length_of_$2 = STRLEN_length_of_$2;\n";
     }
 
     # check for optional initialisation code
