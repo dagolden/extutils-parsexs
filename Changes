@@ -1,6 +1,6 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.20_03 - 
+2.20_03 - Thu Jul 23 23:14:50 EDT 2009
 
  Bug fixes:
  - Fixed "const char *" errors for 5.8.8 (and older) (RT#48104) 
