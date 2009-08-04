@@ -12,3 +12,4 @@ t/XSTest.pm
 t/XSTest.xs
 t/XSUsage.pm
 t/XSUsage.xs
+README
