@@ -7,6 +7,8 @@ Makefile.PL
 MANIFEST
 META.yml			Module meta-data (added by MakeMaker)
 t/basic.t
+t/usage.t
 t/XSTest.pm
 t/XSTest.xs
-README
+t/XSUsage.pm
+t/XSUsage.xs
