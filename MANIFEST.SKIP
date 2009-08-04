@@ -11,3 +11,4 @@ CVS
 \.c$
 \.o$
 ~$
+^bleadcheck.pl$
