@@ -984,7 +984,11 @@ EOF
   #-Wall: if there is no $Full_func_name there are no xsubs in this .xs
   #so `file' is unused
   print Q(<<"EOF") if $Full_func_name;
-#    $file_decl = __FILE__;
+##if (PERL_REVISION == 5 && PERL_VERSION < 9)
+#    char file[] = __FILE__;
+##else
+#    const char* file = __FILE__;
+##endif
 EOF
 
   print Q("#\n");
@@ -1031,11 +1035,11 @@ EOF
     print "\n    /* End of Initialisation Section */\n\n" ;
   }
 
-  print <<'EOF';
-#ifdef PL_unitcheckav
-  if (PL_unitcheckav)
-       call_list(PL_scopestack_ix, PL_unitcheckav);
-#endif
+  print Q(<<'EOF');
+##ifdef PL_unitcheckav
+#  if (PL_unitcheckav)
+#       call_list(PL_scopestack_ix, PL_unitcheckav);
+##endif
 EOF
 
   print Q(<<"EOF");
