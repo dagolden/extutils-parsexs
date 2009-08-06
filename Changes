@@ -1,5 +1,7 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.20_04 - 
+
 2.20_03 - Thu Jul 23 23:14:50 EDT 2009
 
  Bug fixes:
