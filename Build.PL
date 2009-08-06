@@ -5,7 +5,7 @@ my $class = Module::Build->subclass(code => <<'EOF');
   sub do_create_makefile_pl {
     my $self = shift;
     $self->SUPER::do_create_makefile_pl(fh => $fh);
-    $self->do_system(qw(perl -pi -e), q{s/'INSTALLDIRS' => '\w+'/'INSTALLDIRS' => (\$] >= 5.009003 ? 'perl' : 'site')/}, 'Makefile.PL');
+    $self->do_system(qw(perl -pi -e), q{s/'INSTALLDIRS' => '\w+'/'INSTALLDIRS' => (\$] < 5.008009 ? 'site' : 'perl')/}, 'Makefile.PL');
   }
 EOF
 
@@ -13,7 +13,7 @@ my $build = $class->new
   (
    module_name => 'ExtUtils::ParseXS',
    license => 'perl',
-   installdirs => ($] >= 5.009003 ? 'core' : 'site'),
+   installdirs => ($] < 5.008009 ? 'site' : 'core'),
    auto_configure_requires => 0,
    requires => {
      'Cwd' => 0,
