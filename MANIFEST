@@ -8,7 +8,6 @@ MANIFEST
 META.yml			Module meta-data (added by MakeMaker)
 README
 t/basic.t
-t/bugs.t
 t/bugs/RT48104.xs
 t/bugs/typemap
 t/include/nscore.h
