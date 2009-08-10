@@ -1,10 +1,13 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.20_04 - 
+2.20_04 - Mon Aug 10 11:18:47 EDT 2009
 
  Bug fixes:
  - Changed install_dirs to 'core' for 5.8.9 as well (RT#48474)
  - Removed t/bugs.t until there is better C++ support in ExtUtils::CBuilder
+
+ Other:
+ - Updated repository URL in META file
 
 2.20_03 - Thu Jul 23 23:14:50 EDT 2009
 
