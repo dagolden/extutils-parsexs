@@ -107,7 +107,7 @@ SKIP: {
     }
   }
 }
-exit;
+
 unless ($ENV{PERL_NO_CLEANUP}) {
   for ( $obj_file, $lib_file, $source_file) {
     next unless defined $_;
