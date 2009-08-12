@@ -14,6 +14,11 @@ outlist(int* a, int* b){
 	*b = 'b';
 }
 
+STATIC int
+len(const char* const s, int const l){
+	return l;
+}
+
 MODULE = XSMore         PACKAGE = XSMore
 
 =for testing
@@ -22,7 +27,7 @@ This parts are also ignored.
 
 =cut
 
-PROTOTYPES: DISABLE
+PROTOTYPES: ENABLE
 
 VERSIONCHECK: DISABLE
 
@@ -43,7 +48,7 @@ CODE:
 	NOOP;
 
 void
-attr_method()
+attr_method(self, ...)
 ATTRS: method
 CODE:
 	NOOP;
@@ -84,7 +89,7 @@ OUTPUT:
 	RETVAL
 
 void
-hook(AV* av)
+hook(IN AV* av)
 INIT:
 	av_push(av, newSVpv("INIT", 0));
 CODE:
@@ -98,8 +103,15 @@ CLEANUP:
 void
 outlist(OUTLIST int a, OUTLIST int b)
 
+int
+len(const char* s, int length(s))
+
 #if 1
 
 INCLUDE: XSInclude.xsh
+
+#else
+
+# for testing #else directive
 
 #endif

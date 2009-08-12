@@ -16,7 +16,7 @@ use ExtUtils::CBuilder;
 use attributes;
 use overload;
 
-plan tests => 19;
+plan tests => 24;
 
 my ($source_file, $obj_file, $lib_file);
 
@@ -32,7 +32,10 @@ use Carp; $SIG{__WARN__} = \&Carp::cluck;
 $source_file = 'XSMore.c';
 
 # Try sending to file
-process_file(filename => 'XSMore.xs', output => $source_file, prototypes => 0);
+ExtUtils::ParseXS->process_file(
+	filename => 'XSMore.xs',
+	output   => $source_file,
+);
 ok -e $source_file, "Create an output file";
 
 my $quiet = $ENV{PERL_CORE} && !$ENV{HARNESS_ACTIVE};
@@ -68,12 +71,17 @@ SKIP: {
   is $XSMore::boot_ok, 100, 'the BOOT keyword';
 
   ok XSMore::include_ok(), 'the INCLUDE keyword';
+  is prototype(\&XSMore::include_ok), "", 'the PROTOTYPES keyword';
 
   is prototype(\&XSMore::prototype_ssa), '$$@', 'the PROTOTYPE keyword';
+
   is_deeply [attributes::get(\&XSMore::attr_method)], [qw(method)], 'the ATTRS keyword';
+  is prototype(\&XSMore::attr_method), '$;@', 'ATTRS with prototype';
 
   is XSMore::return_1(), 1, 'the CASE keyword (1)';
   is XSMore::return_2(), 2, 'the CASE keyword (2)';
+  is prototype(\&XSMore::return_1), "", 'ALIAS with prototype (1)';
+  is prototype(\&XSMore::return_2), "", 'ALIAS with prototype (2)';
 
   is XSMore::arg_init(200), 200, 'argument init';
 
@@ -85,6 +93,8 @@ SKIP: {
   is_deeply \@a, [qw(INIT CODE POSTCALL CLEANUP)], 'the INIT & POSTCALL & CLEANUP keywords';
 
   is_deeply [XSMore::outlist()], [ord('a'), ord('b')], 'the OUTLIST keyword';
+
+  is XSMore::len("foo"), 3, 'the length keyword';
 
   # Win32 needs to close the DLL before it can unlink it, but unfortunately
   # dl_unload_file was missing on Win32 prior to perl change #24679!

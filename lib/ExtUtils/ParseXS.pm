@@ -848,7 +848,7 @@ EOF
 	next;
       }
       last if $_ eq "$END:";
-      death(/^$BLOCK_re/o ? "Misplaced `$1:'" : "Junk at end of function");
+      death(/^$BLOCK_re/o ? "Misplaced `$1:'" : "Junk at end of function ($_)");
     }
     
     print Q(<<"EOF") if $except;
@@ -871,7 +871,7 @@ EOF
 #
 EOF
 
-    my $newXS  = "newXS" ;
+    our $newXS = "newXS" ;
     our $proto = "" ;
     
     # Build the prototype string for the xsub
@@ -898,23 +898,20 @@ EOF
       }
       $proto = qq{, "$proto"};
     }
-    
+
     if (%XsubAliases) {
       $XsubAliases{$pname} = 0
 	unless defined $XsubAliases{$pname} ;
       while ( ($name, $value) = each %XsubAliases) {
 	push(@InitFileCode, Q(<<"EOF"));
-#        cv = newXS(\"$name\", XS_$Full_func_name, file);
+#        cv = ${newXS}(\"$name\", XS_$Full_func_name, file$proto);
 #        XSANY.any_i32 = $value ;
-EOF
-	push(@InitFileCode, Q(<<"EOF")) if $proto;
-#        sv_setpv((SV*)cv$proto) ;
 EOF
       }
     }
     elsif (@Attributes) {
       push(@InitFileCode, Q(<<"EOF"));
-#        cv = newXS(\"$pname\", XS_$Full_func_name, file);
+#        cv = ${newXS}(\"$pname\", XS_$Full_func_name, file$proto);
 #        apply_attrs_string("$Package", cv, "@Attributes", 0);
 EOF
     }
@@ -922,11 +919,8 @@ EOF
       while ( ($name, $value) = each %Interfaces) {
 	$name = "$Package\::$name" unless $name =~ /::/;
 	push(@InitFileCode, Q(<<"EOF"));
-#        cv = newXS(\"$name\", XS_$Full_func_name, file);
+#        cv = ${newXS}(\"$name\", XS_$Full_func_name, file$proto);
 #        $interface_macro_set(cv,$value) ;
-EOF
-	push(@InitFileCode, Q(<<"EOF")) if $proto;
-#        sv_setpv((SV*)cv$proto) ;
 EOF
       }
     }
@@ -951,7 +945,7 @@ EOF
     /* Making a sub named "${Package}::()" allows the package */
     /* to be findable via fetchmethod(), and causes */
     /* overload::Overloaded("${Package}") to return true. */
-    newXS("${Package}::()", XS_${Packid}_nil, file$proto);
+    ${newXS}("${Package}::()", XS_${Packid}_nil, file$proto);
 MAKE_FETCHMETHOD_WORK
   }
 
@@ -1362,7 +1356,7 @@ sub OVERLOAD_handler()
       $Overload = 1 unless $Overload;
       my $overload = "$Package\::(".$1 ;
       push(@InitFileCode,
-	   "        newXS(\"$overload\", XS_$Full_func_name, file$proto);\n");
+	   "        ${newXS}(\"$overload\", XS_$Full_func_name, file$proto);\n");
     }
   }  
 }
