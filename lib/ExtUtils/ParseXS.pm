@@ -19,6 +19,7 @@ my($XSS_work_idx, $cpp_next_tmp);
 
 use vars qw($VERSION);
 $VERSION = '2.20_04';
+$VERSION = eval $VERSION if $VERSION =~ /_/;
 
 use vars qw(%input_expr %output_expr $ProtoUsed @InitFileCode $FH $proto_re $Overload $errors $Fallback
 	    $cplusplus $hiertype $WantPrototypes $WantVersionChk $except $WantLineNumbers
@@ -436,7 +437,7 @@ EOF
     $xsreturn = 0;
 
     $_ = shift(@line);
-    while (my $kwd = check_keyword("REQUIRE|PROTOTYPES|FALLBACK|VERSIONCHECK|INCLUDE")) {
+    while (my $kwd = check_keyword("REQUIRE|PROTOTYPES|FALLBACK|VERSIONCHECK|INCLUDE|SCOPE")) {
       &{"${kwd}_handler"}() ;
       next PARAGRAPH unless @line ;
       $_ = shift(@line);
@@ -870,8 +871,8 @@ EOF
 #
 EOF
 
-    my $newXS = "newXS" ;
-    my $proto = "" ;
+    my $newXS  = "newXS" ;
+    our $proto = "" ;
     
     # Build the prototype string for the xsub
     if ($ProtoThisXSUB) {
@@ -1455,16 +1456,10 @@ sub SCOPE_handler ()
     death("Error: Only 1 SCOPE declaration allowed per xsub")
       if $scope_in_this_xsub ++ ;
 
-    for (;  !/^$BLOCK_re/o;  $_ = shift(@line)) {
-      next unless /\S/;
-      TrimWhitespace($_) ;
-      if ($_ =~ /^DISABLE/i) {
-	$ScopeThisXSUB = 0
-      } elsif ($_ =~ /^ENABLE/i) {
-	$ScopeThisXSUB = 1
-      }
-    }
-
+    TrimWhitespace($_);
+    death ("Error: SCOPE: ENABLE/DISABLE")
+        unless /^(ENABLE|DISABLE)\b/i;
+    $ScopeThisXSUB = ( uc($1) eq 'ENABLE' );
   }
 
 sub PROTOTYPES_handler ()
