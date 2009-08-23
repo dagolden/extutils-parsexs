@@ -2,6 +2,10 @@ Revision history for Perl extension ExtUtils::ParseXS.
 
 2.20_05 - 
 
+ Bug fixes:
+ - Fix prototype related bugs [Goro Fuji]
+ - Fix the SCOPE keyword [Goro Fuji]
+
 2.20_04 - Mon Aug 10 11:18:47 EDT 2009
 
  Bug fixes:
