@@ -104,7 +104,7 @@ void
 outlist(OUTLIST int a, OUTLIST int b)
 
 int
-len(const char* s, int length(s))
+len(char* s, int length(s))
 
 #if 1
 
