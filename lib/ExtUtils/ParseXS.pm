@@ -354,6 +354,22 @@ S_croak_xs_usage(pTHX_ const CV *const cv, const char *const params)
 
 #endif
 
+/* NOTE: the prototype of newXSproto() is different in versions of perls,
+ * so we define a portable version of newXSproto()
+ */
+#ifdef newXS_flags
+#define newXSproto_portable newXSproto
+#else
+#define newXSproto_portable(name, c_impl, file, proto) S_newXSproto_portable(aTHX_ name, c_impl, file, proto)
+/* newXSproto for 5.8.x */
+STATIC CV*
+S_newXSproto_portable(pTHX_ char* const name, XSUBADDR_t const subaddr, char* const filename, const char* const proto) {
+    CV* const xsub = newXS(name, subaddr, filename);
+    sv_setpv((SV*)xsub, proto);
+    return xsub;
+}
+#endif /* !defined(newXS_flags) */
+
 EOF
 
   print 'ExtUtils::ParseXS::CountLines'->end_marker, "\n" if $WantLineNumbers;
@@ -876,7 +892,7 @@ EOF
     
     # Build the prototype string for the xsub
     if ($ProtoThisXSUB) {
-      $newXS = "newXSproto";
+      $newXS = "newXSproto_portable";
       
       if ($ProtoThisXSUB eq 2) {
 	# User has specified empty prototype
