@@ -4,7 +4,7 @@
 # against svn are obvious
 
 use strict;
-use warnings;
+use warnings; # hi, Jim!
 
 use lib 'lib';
 use Module::Build;
