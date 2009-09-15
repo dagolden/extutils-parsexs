@@ -42,3 +42,4 @@ bleadcheck\.pl$
 doc_check.pl$
 save_err$
 ~$
+^MYMETA.yml$
