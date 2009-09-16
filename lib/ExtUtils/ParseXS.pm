@@ -936,7 +936,7 @@ EOF
     }
     else {
       push(@InitFileCode,
-	   "        ${newXS}(\"$pname\", XS_$Full_func_name, file$proto);\n");
+	   "        (void)${newXS}(\"$pname\", XS_$Full_func_name, file$proto);\n");
     }
   }
 
@@ -955,7 +955,7 @@ EOF
     /* Making a sub named "${Package}::()" allows the package */
     /* to be findable via fetchmethod(), and causes */
     /* overload::Overloaded("${Package}") to return true. */
-    ${newXS}("${Package}::()", XS_${Packid}_nil, file$proto);
+    (void)${newXS}("${Package}::()", XS_${Packid}_nil, file$proto);
 MAKE_FETCHMETHOD_WORK
   }
 
@@ -1364,7 +1364,7 @@ sub OVERLOAD_handler()
       $Overload = 1 unless $Overload;
       my $overload = "$Package\::(".$1 ;
       push(@InitFileCode,
-	   "        ${newXS}(\"$overload\", XS_$Full_func_name, file$proto);\n");
+	   "        (void)${newXS}(\"$overload\", XS_$Full_func_name, file$proto);\n");
     }
   }  
 }
