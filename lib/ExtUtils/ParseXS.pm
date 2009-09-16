@@ -360,16 +360,9 @@ S_croak_xs_usage(pTHX_ const CV *const cv, const char *const params)
  * so we define a portable version of newXSproto()
  */
 #ifdef newXS_flags
-#define newXSproto_portable newXSproto
+#define newXSproto_portable(name, c_impl, file, proto) newXS_flags(name, c_impl, file, proto, 0)
 #else
-#define newXSproto_portable(name, c_impl, file, proto) S_newXSproto_portable(aTHX_ name, c_impl, file, proto)
-/* newXSproto for 5.8.x */
-STATIC CV*
-S_newXSproto_portable(pTHX_ char* const name, XSUBADDR_t const subaddr, char* const filename, const char* const proto) {
-    CV* const xsub = newXS(name, subaddr, filename);
-    sv_setpv((SV*)xsub, proto);
-    return xsub;
-}
+#define newXSproto_portable(name, c_impl, file, proto) (PL_Sv=(SV*)newXS(name, c_impl, file), sv_setpv(PL_Sv, proto), (CV*)PL_Sv)
 #endif /* !defined(newXS_flags) */
 
 EOF
