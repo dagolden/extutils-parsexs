@@ -1044,7 +1044,7 @@ EOF
   }
 
   print Q(<<'EOF');
-##ifdef PL_unitcheckav
+##if (PERL_REVISION == 5 && PERL_VERSION >= 9)
 #  if (PL_unitcheckav)
 #       call_list(PL_scopestack_ix, PL_unitcheckav);
 ##endif
