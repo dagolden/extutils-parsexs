@@ -1,0 +1,16 @@
+/* backport this from later perls for perl 5.6.2 */
+AV *            T_AVREF
+
+INPUT
+T_AVREF
+    if (SvROK($arg) && SvTYPE(SvRV($arg))==SVt_PVAV)
+        $var = (AV*)SvRV($arg);
+    else
+        Perl_croak(aTHX_ \"%s: %s is not an array reference\",
+            ${$ALIAS?\q[GvNAME(CvGV(cv))]:\qq[\"$pname\"]},
+            \"$var\")
+
+OUTPUT
+T_AVREF
+    $arg = newRV((SV*)$var);
+

@@ -13,6 +13,7 @@ t/bugs/typemap
 t/include/nscore.h
 t/include/nsUniversalDetector.h
 t/more.t
+t/typemap
 t/usage.t
 t/XSInclude.xsh
 t/XSMore.xs
