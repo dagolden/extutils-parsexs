@@ -1,6 +1,10 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.200402 - 
+2.200402 - Fri Oct  2 01:26:40 EDT 2009
+
+ Bug fixes:
+ - UNITCHECK subroutines were not being called (detected in ext/XS-APItest
+   in Perl blead) [reported by Jesse Vincent, patched by David Golden]
 
 2.200401 - Mon Sep 14 22:26:03 EDT 2009
 
@@ -18,8 +22,8 @@ Revision history for Perl extension ExtUtils::ParseXS.
 2.20_03 - Thu Jul 23 23:14:50 EDT 2009
 
  Bug fixes:
- - Fixed "const char *" errors for 5.8.8 (and older) (RT#48104) 
-   [Vincent Pit] 
+ - Fixed "const char *" errors for 5.8.8 (and older) (RT#48104)
+   [Vincent Pit]
  - Added newline before a preprocessor directive (RT#30673)
    [patch by hjp]
 
