@@ -979,8 +979,6 @@ EOF
   #Under 5.8.x and lower, newXS is declared in proto.h as expecting a non-const
   #file name argument. If the wrong qualifier is used, it causes breakage with
   #C++ compilers and warnings with recent gcc.
-  my $file_decl = ($] < 5.009) ? "char file[]" : "const char* file";
-
   #-Wall: if there is no $Full_func_name there are no xsubs in this .xs
   #so `file' is unused
   print Q(<<"EOF") if $Full_func_name;
