@@ -2,11 +2,34 @@ Revision history for Perl extension ExtUtils::ParseXS.
 
 2.20_06 - 
 
+ Other:
+ - Merged changes from 2.2004 maintenance branch (see 2.200401 to 2.200403)
+   [David Golden]
+
 2.20_05 - Sat Aug 22 21:46:56 EDT 2009
 
  Bug fixes:
  - Fix prototype related bugs [Goro Fuji]
  - Fix the SCOPE keyword [Goro Fuji]
+
+2.200403 - Fri Oct  2 02:01:58 EDT 2009
+
+ Other:
+ - Removed PERL_CORE specific @INC manipulation (no longer needed)
+   [Nicholas Clark]
+ - Changed hard-coded $^H manipulation in favor of "use re 'eval'"
+   [Nicholas Clark]
+
+2.200402 - Fri Oct  2 01:26:40 EDT 2009
+
+ Bug fixes:
+ - UNITCHECK subroutines were not being called (detected in ext/XS-APItest
+   in Perl blead) [reported by Jesse Vincent, patched by David Golden]
+
+2.200401 - Mon Sep 14 22:26:03 EDT 2009
+
+ - No changes from 2.20_04.
+
 
 2.20_04 - Mon Aug 10 11:18:47 EDT 2009
 
