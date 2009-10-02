@@ -210,7 +210,9 @@ sub process_file {
   $size = qr[,\s* (??{ $bal }) ]x; # Third arg (to setpvn)
 
   foreach my $key (keys %output_expr) {
-    BEGIN { $^H |= 0x00200000 }; # Equivalent to: use re 'eval', but hardcoded so we can compile re.xs
+    # We can still bootstrap compile 're', because in code re.pm is 
+    # available to miniperl, and does not attempt to load the XS code.
+    use re 'eval';
 
     my ($t, $with_size, $arg, $sarg) =
       ($output_expr{$key} =~

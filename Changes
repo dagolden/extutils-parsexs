@@ -4,6 +4,9 @@ Revision history for Perl extension ExtUtils::ParseXS.
 
  Other:
  - Removed PERL_CORE specific @INC manipulation (no longer needed)
+   [Nicholas Clark]
+ - Changed hard-coded $^H manipulation in favor of "use re 'eval'"
+   [Nicholas Clark]
 
 2.200402 - Fri Oct  2 01:26:40 EDT 2009
 
