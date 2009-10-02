@@ -555,7 +555,6 @@ EOF
       my $arg0 = ((defined($static) or $func_name eq 'new')
 		  ? "CLASS" : "THIS");
       unshift(@args, $arg0);
-#      ($report_args = "$arg0, $report_args") =~ s/^\w+, $/$arg0/;
     }
     my $extra_args = 0;
     @args_num = ();
