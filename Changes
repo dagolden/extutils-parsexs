@@ -1,6 +1,6 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.2004_03 -
+2.2004_03 - Fri Oct  2 02:01:58 EDT 2009
 
  Other:
  - Removed PERL_CORE specific @INC manipulation (no longer needed)
