@@ -1,9 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.20_06 - 
+2.20_06 - Fri Oct  2 23:45:45 EDT 2009
 
  Bug fixes:
  - Added t/typemap to fix broken test on perl 5.6.2 [David Golden]
+ - More prototype fixes for older perls [Goro Fuji]
+ - Avoid "const char *" in test files as it breaks on 5.6.2 [Goro Fuji]
 
  Other:
  - Merged changes from 2.2004 maintenance branch (see 2.200401 to 2.200403)
