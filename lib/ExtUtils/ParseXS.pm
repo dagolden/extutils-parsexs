@@ -988,7 +988,7 @@ EOF
   #so `file' is unused
   print Q(<<"EOF") if $Full_func_name;
 ##if (PERL_REVISION == 5 && PERL_VERSION < 9)
-#    char file[] = __FILE__;
+#    char* file = __FILE__;
 ##else
 #    const char* file = __FILE__;
 ##endif
