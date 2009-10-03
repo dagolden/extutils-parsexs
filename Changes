@@ -1,6 +1,6 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.20_07 - 
+2.20_07 - Sat Oct  3 11:26:55 EDT 2009
 
  Bug fixes:
  - Use "char* file" for perl < 5.9, not "char[] file"; fixes mod_perl
