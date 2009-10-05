@@ -1,9 +1,12 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
-2.20_08 - 
+2.21 - Mon Oct  5 11:17:53 EDT 2009
 
  Bug fixes:
  - Adds full path in INCLUDE #line directives (RT#50198) [patch by "spb"]
+
+ Other:
+ - Updated copyright and maintainer list
 
 2.20_07 - Sat Oct  3 11:26:55 EDT 2009
 

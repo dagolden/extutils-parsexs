@@ -18,7 +18,7 @@ my(@XSStack);	# Stack of conditionals and INCLUDEs
 my($XSS_work_idx, $cpp_next_tmp);
 
 use vars qw($VERSION);
-$VERSION = '2.20_08';
+$VERSION = '2.21';
 $VERSION = eval $VERSION if $VERSION =~ /_/;
 
 use vars qw(%input_expr %output_expr $ProtoUsed @InitFileCode $FH $proto_re $Overload $errors $Fallback
@@ -2079,11 +2079,24 @@ encountered during processing of the XS file.
 
 Based on xsubpp code, written by Larry Wall.
 
-Maintained by Ken Williams, <ken@mathforum.org>
+Maintained by: 
+
+=over 4
+
+=item *
+
+Ken Williams, <ken@mathforum.org>
+
+=item *
+
+David Golden, <dagolden@cpan.org>
+
+=back
 
 =head1 COPYRIGHT
 
-Copyright 2002-2003 Ken Williams.  All rights reserved.
+Copyright 2002-2009 by Ken Williams, David Golden and other contributors.  All
+rights reserved.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
