@@ -1522,7 +1522,8 @@ sub INCLUDE_handler ()
 #
 EOF
 
-    $filepathname = $filename = $_ ;
+    $filename = $_ ;
+    $filepathname = "$dir/$filename";
 
     # Prime the pump by reading the first
     # non-blank line
