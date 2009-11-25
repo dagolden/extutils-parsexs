@@ -934,6 +934,10 @@ EOF
 EOF
       }
     }
+    elsif($newXS eq 'newXS'){ # work around P5NCI's empty newXS macro
+      push(@InitFileCode,
+	   "        ${newXS}(\"$pname\", XS_$Full_func_name, file$proto);\n");
+    }
     else {
       push(@InitFileCode,
 	   "        (void)${newXS}(\"$pname\", XS_$Full_func_name, file$proto);\n");
