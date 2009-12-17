@@ -230,9 +230,10 @@ sub process_file {
 
   # Match an XS keyword
   $BLOCK_re= '\s*(' . join('|', qw(
-				   REQUIRE BOOT CASE PREINIT INPUT INIT CODE PPCODE OUTPUT
-				   CLEANUP ALIAS ATTRS PROTOTYPES PROTOTYPE VERSIONCHECK INCLUDE
-				   SCOPE INTERFACE INTERFACE_MACRO C_ARGS POSTCALL OVERLOAD FALLBACK
+				   REQUIRE BOOT CASE PREINIT INPUT INIT CODE PPCODE
+				   OUTPUT CLEANUP ALIAS ATTRS PROTOTYPES PROTOTYPE
+				   VERSIONCHECK INCLUDE INCLUDE_COMMAND SCOPE INTERFACE
+				   INTERFACE_MACRO C_ARGS POSTCALL OVERLOAD FALLBACK
 				  )) . "|$END)\\s*:";
 
   
@@ -448,7 +449,7 @@ EOF
     $xsreturn = 0;
 
     $_ = shift(@line);
-    while (my $kwd = check_keyword("REQUIRE|PROTOTYPES|FALLBACK|VERSIONCHECK|INCLUDE|SCOPE")) {
+    while (my $kwd = check_keyword("REQUIRE|PROTOTYPES|FALLBACK|VERSIONCHECK|INCLUDE(?:_COMMAND)?|SCOPE")) {
       &{"${kwd}_handler"}() ;
       next PARAGRAPH unless @line ;
       $_ = shift(@line);
@@ -1481,6 +1482,22 @@ sub PROTOTYPES_handler ()
 
   }
 
+sub PushXSStack
+  {
+    # Save the current file context.
+    push(@XSStack, {
+		    type            => 'file',
+		    LastLine        => $lastline,
+		    LastLineNo      => $lastline_no,
+		    Line            => \@line,
+		    LineNo          => \@line_no,
+		    Filename        => $filename,
+		    Filepathname    => $filepathname,
+		    Handle          => $FH,
+		   }) ;
+
+  }
+
 sub INCLUDE_handler ()
   {
     # the rest of the current line should contain a valid filename
@@ -1499,17 +1516,11 @@ sub INCLUDE_handler ()
 
     ++ $IncludedFiles{$_} unless /\|\s*$/ ;
 
-    # Save the current file context.
-    push(@XSStack, {
-		    type		=> 'file',
-		    LastLine        => $lastline,
-		    LastLineNo      => $lastline_no,
-		    Line            => \@line,
-		    LineNo          => \@line_no,
-		    Filename        => $filename,
-		    Filepathname    => $filepathname,
-		    Handle          => $FH,
-		   }) ;
+    Warn("The INCLUDE directive with a command is deprecated." .
+         " Use INCLUDE_COMMAND instead!")
+      if /\|\s*$/ ;
+
+    PushXSStack();
 
     $FH = Symbol::gensym();
 
@@ -1535,7 +1546,47 @@ EOF
 
     $lastline = $_ ;
     $lastline_no = $. ;
+  }
 
+sub INCLUDE_COMMAND_handler ()
+  {
+    # the rest of the current line should contain a valid command
+
+    TrimWhitespace($_) ;
+
+    death("INCLUDE_COMMAND: command missing")
+      unless $_ ;
+
+    death("INCLUDE_COMMAND: pipes are illegal")
+      if /^\s*\|/ or /\|\s*$/ ;
+
+    $FH = Symbol::gensym();
+
+    PushXSStack();
+
+    # open the new file
+    open ($FH, "-|", "$_")
+      or death("Cannot run command '$_' to include its output: $!") ;
+
+    print Q(<<"EOF");
+#
+#/* INCLUDE_COMMAND:  Including output of '$_' from '$filename' */
+#
+EOF
+
+    $filename = $_ ;
+    $filepathname = "$dir/$filename";
+
+    # Prime the pump by reading the first
+    # non-blank line
+
+    # skip leading blank lines
+    while (<$FH>) {
+      last unless /^\s*$/ ;
+    }
+
+    $lastline = $_ ;
+    $lastline_no = $. ;
   }
 
 sub PopFile()
