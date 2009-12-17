@@ -1564,6 +1564,10 @@ sub INCLUDE_COMMAND_handler ()
 
     PushXSStack();
 
+    # If $^X is used in INCLUDE_COMMAND, we know it's supposed to be
+    # the same perl interpreter as we're currently running
+    s/^\s*\$\^X/$^X/;
+
     # open the new file
     open ($FH, "-|", "$_")
       or death("Cannot run command '$_' to include its output: $!") ;
