@@ -1564,9 +1564,9 @@ sub INCLUDE_COMMAND_handler ()
     death("INCLUDE_COMMAND: pipes are illegal")
       if /^\s*\|/ or /\|\s*$/ ;
 
-    $FH = Symbol::gensym();
-
     PushXSStack();
+
+    $FH = Symbol::gensym();
 
     # If $^X is used in INCLUDE_COMMAND, we know it's supposed to be
     # the same perl interpreter as we're currently running
