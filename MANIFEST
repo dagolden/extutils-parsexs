@@ -12,6 +12,7 @@ t/bugs/RT48104.xs
 t/bugs/typemap
 t/include/nscore.h
 t/include/nsUniversalDetector.h
+t/lib/IncludeTester.pm
 t/more.t
 t/typemap
 t/usage.t
