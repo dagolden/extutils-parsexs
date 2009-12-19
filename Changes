@@ -1,5 +1,11 @@
 Revision history for Perl extension ExtUtils::ParseXS.
 
+2.21_02 - Sat Dec 19 10:55:41 EST 2009
+
+ Bug fixes:
+
+ - fixed bugs and added tests for INCLUDE_COMMAND [Steffen Mueller]
+
 2.21_01 - Sat Dec 19 07:22:44 EST 2009
 
  Enhancements:
