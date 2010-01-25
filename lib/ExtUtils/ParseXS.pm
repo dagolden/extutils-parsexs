@@ -521,11 +521,11 @@ EOF
 	  next unless defined($pre) && length($pre);
 	  my $out_type = '';
 	  my $inout_var;
-	  if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s+//) {
+	  if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s*//) {
 	    my $type = $1;
 	    $out_type = $type if $type ne 'IN';
-	    $arg =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s+//;
-	    $pre =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s+//;
+	    $arg =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s*//;
+	    $pre =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s*//;
 	  }
 	  my $islength;
 	  if ($name =~ /^length\( \s* (\w+) \s* \)\z/x) {
