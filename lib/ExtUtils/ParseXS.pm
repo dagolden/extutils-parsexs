@@ -521,11 +521,11 @@ EOF
 	  next unless defined($pre) && length($pre);
 	  my $out_type = '';
 	  my $inout_var;
-	  if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s*//) {
+	  if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\b\s*//) {
 	    my $type = $1;
 	    $out_type = $type if $type ne 'IN';
-	    $arg =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s*//;
-	    $pre =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\s*//;
+	    $arg =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\b\s*//;
+	    $pre =~ s/^(IN|IN_OUTLIST|OUTLIST|OUT|IN_OUT)\b\s*//;
 	  }
 	  my $islength;
 	  if ($name =~ /^length\( \s* (\w+) \s* \)\z/x) {
@@ -555,7 +555,7 @@ EOF
     } else {
       @args = split(/\s*,\s*/, $orig_args);
       for (@args) {
-	if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|IN_OUT|OUT)\s+//) {
+	if ($process_inout and s/^(IN|IN_OUTLIST|OUTLIST|IN_OUT|OUT)\b\s*//) {
 	  my $out_type = $1;
 	  next if $out_type eq 'IN';
 	  $only_C_inlist{$_} = 1 if $out_type eq "OUTLIST";
