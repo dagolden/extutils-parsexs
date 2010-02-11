@@ -20,7 +20,7 @@ SYNOPSIS
                   );
     =head1 DESCRIPTION
 
-    `ExtUtils::ParseXS' will compile XS code into C code by embedding the
+    "ExtUtils::ParseXS" will compile XS code into C code by embedding the
     constructs necessary to let C functions manipulate Perl values and
     creates the glue necessary to let Perl access those functions. The
     compiler uses typemaps to determine how to map C function parameters and
@@ -33,7 +33,7 @@ SYNOPSIS
             ../../../typemap:../../typemap:../typemap:typemap
 
 EXPORT
-    None by default. `process_file()' may be exported upon request.
+    None by default. "process_file()" may be exported upon request.
 
 FUNCTIONS
     process_xs()
@@ -41,10 +41,10 @@ FUNCTIONS
         Named parameters control how the processing is done. The following
         parameters are accepted:
 
-        C++ Adds `extern "C"' to the C code. Default is false.
+        C++ Adds "extern "C"" to the C code. Default is false.
 
         hiertype
-            Retains `::' in type names so that C++ hierachical types can be
+            Retains "::" in type names so that C++ hierachical types can be
             mapped. Default is false.
 
         except
@@ -61,11 +61,11 @@ FUNCTIONS
 
         versioncheck
             Makes sure at run time that the object file (derived from the
-            `.xs' file) and the `.pm' files have the same version number.
+            ".xs" file) and the ".pm" files have the same version number.
             Default is true.
 
         linenumbers
-            Adds `#line' directives to the C output so error messages will
+            Adds "#line" directives to the C output so error messages will
             look like they came from the original XS file. Default is true.
 
         optimize
@@ -76,7 +76,7 @@ FUNCTIONS
             operated. Default is to optimize.
 
         inout
-            Enable recognition of `IN', `OUT_LIST' and `INOUT_LIST'
+            Enable recognition of "IN", "OUT_LIST" and "INOUT_LIST"
             declarations. Default is true.
 
         argtypes
