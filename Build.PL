@@ -2,6 +2,15 @@ use Module::Build;
 use Config;
 
 my $class = Module::Build->subclass(code => <<'EOF');
+  # add lib/ExtUtils/xsubpp
+  sub find_pm_files {
+    my $self = shift;
+    my $pm_files = $self->SUPER::find_pm_files;
+    my $xsubpp = $self->localize_file_path('lib/ExtUtils/xsubpp');
+    $pm_files->{$xsubpp} = $xsubpp;
+    return $pm_files
+  }
+
   sub do_create_makefile_pl {
     my $self = shift;
     $self->SUPER::do_create_makefile_pl(fh => $fh);
