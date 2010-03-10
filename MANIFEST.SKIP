@@ -1,3 +1,4 @@
+Build\.PL # AVOID CIRCULAR DEPENDENCY
 (^|/)\.
 (^|/)\.#
 (^|/)blib
