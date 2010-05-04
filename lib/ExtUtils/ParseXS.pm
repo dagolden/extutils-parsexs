@@ -74,7 +74,7 @@ sub process_file {
   ($XSS_work_idx, $cpp_next_tmp) = (0, "XSubPPtmpAAAA");
   @InitFileCode = ();
   $FH = Symbol::gensym();
-  $proto_re = "[" . quotemeta('\$%&*@;[]') . "]" ;
+  $proto_re = "[" . quotemeta('\$%&*@;[]_') . "]" ;
   $Overload = 0;
   $errors = 0;
   $Fallback = '&PL_sv_undef';
