@@ -1543,7 +1543,7 @@ sub INCLUDE_handler ()
 EOF
 
     $filename = $_ ;
-    $filepathname = "$dir/$filename";
+    $filepathname = File::Spec->catfile($dir, $filename);
 
     # Prime the pump by reading the first
     # non-blank line
@@ -1557,11 +1557,23 @@ EOF
     $lastline_no = $. ;
   }
 
+sub QuoteArgs {
+    my $cmd = shift;
+    my @args = split /\s+/, $cmd;
+    $cmd = shift @args;
+    for (@args) {
+       $_ = q(").$_.q(") if !/^\"/ && length($_) > 0;
+    }
+    return join (' ', ($cmd, @args));
+  }
+
 sub INCLUDE_COMMAND_handler ()
   {
     # the rest of the current line should contain a valid command
 
     TrimWhitespace($_) ;
+
+    $_ = QuoteArgs($_) if $^O eq 'VMS';
 
     death("INCLUDE_COMMAND: command missing")
       unless $_ ;
@@ -1588,7 +1600,8 @@ sub INCLUDE_COMMAND_handler ()
 EOF
 
     $filename = $_ ;
-    $filepathname = "$dir/$filename";
+    $filepathname = $filename;
+    $filepathname =~ s/\"/\\"/g;
 
     # Prime the pump by reading the first
     # non-blank line
