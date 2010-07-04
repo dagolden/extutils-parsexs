@@ -1488,6 +1488,7 @@ sub PROTOTYPES_handler ()
 
 sub PushXSStack
   {
+    my %args = @_;
     # Save the current file context.
     push(@XSStack, {
 		    type            => 'file',
@@ -1498,6 +1499,8 @@ sub PushXSStack
 		    Filename        => $filename,
 		    Filepathname    => $filepathname,
 		    Handle          => $FH,
+                    IsPipe          => scalar($filename =~ /\|\s*$/),
+                    %args,
 		   }) ;
 
   }
@@ -1581,7 +1584,7 @@ sub INCLUDE_COMMAND_handler ()
     death("INCLUDE_COMMAND: pipes are illegal")
       if /^\s*\|/ or /\|\s*$/ ;
 
-    PushXSStack();
+    PushXSStack( IsPipe => 1 );
 
     $FH = Symbol::gensym();
 
@@ -1621,7 +1624,7 @@ sub PopFile()
 
     my $data     = pop @XSStack ;
     my $ThisFile = $filename ;
-    my $isPipe   = ($filename =~ /\|\s*$/) ;
+    my $isPipe   = $data->{IsPipe};
 
     -- $IncludedFiles{$filename}
       unless $isPipe ;
